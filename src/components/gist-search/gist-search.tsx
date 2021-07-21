@@ -6,6 +6,7 @@ import {
   CardHeader,
   Divider,
   Grid,
+  Link,
   Menu,
   MenuItem,
   Paper,
@@ -44,7 +45,7 @@ const GistSearch = () => {
           item
           alignItems='center'
           justifyContent='center'
-          className='h-1/10'
+          className='h-40'
           // style={{ border: '5px solid blue' }}
         >
           <SearchBar
@@ -55,12 +56,10 @@ const GistSearch = () => {
         <Grid
           container
           item
-          className='h-9/10 overflow-y-auto'
-          style={
-            {
-              // border: '5px solid green',
-            }
-          }
+          className='h-9/10 overflow-y-auto p-2'
+          style={{
+            border: '5px solid green',
+          }}
         >
           {gists.map((gist) => {
             return <Gist key={gist.id} gist={gist} />
@@ -71,33 +70,6 @@ const GistSearch = () => {
     </Paper>
   )
 }
-
-const GistContainer = ({ gists }: GistContainerProps) => {
-  const sample = getSampleGistFile()
-  /**
-   * TODO
-   * Each gist may have multiple files
-   *   - page through them?
-   *   - flatten them?
-   * Display user. If we have one gist we can get user info. Login name, avatar_url
-   * Display gist: created, description, comments, file (allow to copy)
-   * Display file: name, language, size?, grab the contents from the raw_url
-   */
-  const testGists = [sample, sample, sample, sample, sample, sample, sample]
-
-  return (
-    <Grid
-      container
-      item
-      style={{ overflowY: 'auto', border: '2px solid green' }}
-    >
-      {gists.map((gist) => {
-        return <Gist gist={gist} />
-      })}
-    </Grid>
-  )
-}
-
 type GistProps = {
   gist: Gist
 }
@@ -122,51 +94,64 @@ const Gist = ({ gist }: GistProps) => {
   // TODO: don't render uneeded component
   return (
     <div
-      className='flex w-full items-center md:h-1/5 lg:h-1/5 lg:w-1/2 p-2'
-      // style={{ border: '2px solid purple' }}
+      className='flex w-full items-center md:h-80 xl:w-1/2 p-2'
+      style={{ border: '2px solid purple' }}
     >
-      <GistSmallDisplay file={file} />
+      <GistSmallDisplay gist={gist} file={file} />
       <GistDisplay gist={gist} file={file} />
     </div>
   )
 }
 
 type GistDisplayProps = {
+  gist: Gist
   file: GistFile
 }
 
 // TODO: props
-const GistDisplay = ({ gist, file }: GistProps & GistDisplayProps) => {
+const GistDisplay = ({ gist, file }: GistDisplayProps) => {
   return (
     <Paper
       className='hidden md:flex flex-col w-full h-full min-h-64'
       elevation={8}
       // style={{ border: '2px solid green' }}
     >
-      <div className='h-1/5 w-full' style={{ border: '2px solid blue' }}>
-        <div>{`${file.filename} - created ${gist.created_at}`}</div>
+      <div
+        className='h-1/5 w-full m-2'
+        // style={{ border: '2px solid blue' }}
+      >
+        <div>
+          <Link color='secondary' href={gist.html_url}>
+            {file.filename}
+          </Link>
+          {` - created ${gist.created_at}`}
+        </div>
         <div>{gist.description}</div>
       </div>
-      <div className='h-4/5 overflow-y-auto mx-2'>
-        {/* <SyntaxHighlighter
+      <Divider variant='middle' />
+      <div className='h-4/5 overflow-y-auto mx-2 mb-2'>
+        <SyntaxHighlighter
           language={file?.language ? file.language.toLowerCase() : undefined}
+          showLineNumbers
           style={dracula}
         >
           {getSampleGistFile()}
-        </SyntaxHighlighter> */}
+        </SyntaxHighlighter>
       </div>
     </Paper>
   )
 }
 
 // TODO: type and consolidate
-const GistSmallDisplay = ({ file }: GistDisplayProps) => {
+const GistSmallDisplay = ({ gist, file }: GistDisplayProps) => {
   return (
     <div
       className='flex w-full justify-between items-center md:hidden'
       style={{ border: '2px solid green' }}
     >
-      <div>{file.filename}</div>
+      <Link color='secondary' href={gist.html_url}>
+        {file.filename}
+      </Link>
       <VertMenu />
     </div>
   )
@@ -240,6 +225,7 @@ type Gist = {
   description: string
   comments: number // number of comments
   comments_url: string
+  html_url: string
   owner: GistOwner
   truncated: boolean
 }
