@@ -5,10 +5,10 @@ import {
   InputBaseProps,
   Paper,
   PaperProps,
+  Tooltip,
 } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 import { getSampleGist } from '../gist-search/sample-data'
-import axios from 'axios'
 
 type SearchBarProps = {
   // TODO: type
@@ -42,9 +42,11 @@ const SearchBar = ({ onSubmit, placeholder, ...props }: SearchBarProps) => {
         onChange={(e) => setSearchInput(e.target.value)}
         {...props.InputProps}
       />
-      <IconButton type='submit'>
-        <SearchIcon />
-      </IconButton>
+      <Tooltip title='Search'>
+        <IconButton type='submit'>
+          <SearchIcon />
+        </IconButton>
+      </Tooltip>
     </Paper>
   )
 }

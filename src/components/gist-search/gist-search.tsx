@@ -10,6 +10,8 @@ import {
   Menu,
   MenuItem,
   Paper,
+  Tooltip,
+  useTheme,
 } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import SearchBar from '../search-bar/search-bar'
@@ -18,6 +20,9 @@ import Typography from '@material-ui/core/Typography'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import IconButton from '@material-ui/core/IconButton'
+import StarOutlineIcon from '@material-ui/icons/StarOutline'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
 
 const GistSearch = () => {
   // TODO: make width styles
@@ -57,9 +62,11 @@ const GistSearch = () => {
           container
           item
           className='h-9/10 overflow-y-auto p-2'
-          style={{
-            border: '5px solid green',
-          }}
+          style={
+            {
+              // border: '5px solid green',
+            }
+          }
         >
           {gists.map((gist) => {
             return <Gist key={gist.id} gist={gist} />
@@ -78,27 +85,13 @@ const Gist = ({ gist }: GistProps) => {
   const key = Object.keys(gist.files)[0]
   const file = gist.files[key]
 
-  // @media (max-width: ${mediaSizes.lg}) {
-  //   width: 25%;
-  //   height: 20%;
-  // }
-  // @media (max-width: ${mediaSizes.md}) {
-  //   width: 50%;
-  //   height: 10%;
-  // }
-  // @media (max-width: ${mediaSizes.xs}) {
-  //   width: 100%;
-  //   height: 5%;
-  // }
-
-  // TODO: don't render uneeded component
   return (
     <div
       className='flex w-full items-center md:h-80 xl:w-1/2 p-2'
-      style={{ border: '2px solid purple' }}
+      // style={{ border: '2px solid purple' }}
     >
-      <GistSmallDisplay gist={gist} file={file} />
-      <GistDisplay gist={gist} file={file} />
+      <GistSmallCard gist={gist} file={file} />
+      <GistCard gist={gist} file={file} />
     </div>
   )
 }
@@ -109,15 +102,19 @@ type GistDisplayProps = {
 }
 
 // TODO: props
-const GistDisplay = ({ gist, file }: GistDisplayProps) => {
+const GistCard = ({ gist, file }: GistDisplayProps) => {
+  const { palette } = useTheme()
+  const numOfFiles = Object.keys(gist.files).length
+  const sampleGist = getSampleGistFile()
+
   return (
     <Paper
-      className='hidden md:flex flex-col w-full h-full min-h-64'
+      className='hidden relative md:inline-block w-full h-full min-h-64'
       elevation={8}
       // style={{ border: '2px solid green' }}
     >
       <div
-        className='h-1/5 w-full m-2'
+        className='w-full m-2'
         // style={{ border: '2px solid blue' }}
       >
         <div>
@@ -125,25 +122,52 @@ const GistDisplay = ({ gist, file }: GistDisplayProps) => {
             {file.filename}
           </Link>
           {` - created ${gist.created_at}`}
+          {` - ${numOfFiles} file${numOfFiles > 1 ? 's' : ''}`}
         </div>
         <div>{gist.description}</div>
       </div>
       <Divider variant='middle' />
-      <div className='h-4/5 overflow-y-auto mx-2 mb-2'>
+      <div
+        className='h-3/4 overflow-y-auto mx-2 mb-2'
+        // style={{ border: '2px solid red' }}
+      >
         <SyntaxHighlighter
           language={file?.language ? file.language.toLowerCase() : undefined}
           showLineNumbers
           style={dracula}
         >
-          {getSampleGistFile()}
+          {sampleGist}
         </SyntaxHighlighter>
+      </div>
+      <div
+        className='absolute top-0 right-0 z-10'
+        style={{
+          backgroundColor: palette.background.paper,
+          // border: '2px solid red',
+        }}
+      >
+        <Tooltip title='Copy'>
+          <IconButton onClick={() => navigator.clipboard.writeText(sampleGist)}>
+            <FileCopyIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title='Open'>
+          <IconButton onClick={() => window.open(gist.html_url)}>
+            <OpenInNewIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title='Favorite'>
+          <IconButton onClick={() => {}}>
+            <StarOutlineIcon />
+          </IconButton>
+        </Tooltip>
       </div>
     </Paper>
   )
 }
 
 // TODO: type and consolidate
-const GistSmallDisplay = ({ gist, file }: GistDisplayProps) => {
+const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
   return (
     <div
       className='flex w-full justify-between items-center md:hidden'
@@ -191,28 +215,6 @@ const VertMenu = () => {
     </>
   )
 }
-
-// const Gist = ({ gist }: GistProps) => {
-//   const key = Object.keys(gist.files)[0]
-//   const file = gist.files[key]
-
-//   return (
-//     <Card className='m-2' elevation={12}>
-//       <CardHeader
-//         title={`${file.filename} - ${gist.created_at}`}
-//         subheader={`${gist.description}`}
-//       />
-//       <CardContent>
-//         <SyntaxHighlighter
-//           language={file?.language ? file.language.toLowerCase() : undefined}
-//           style={dracula}
-//         >
-//           {getSampleGistFile()}
-//         </SyntaxHighlighter>
-//       </CardContent>
-//     </Card>
-//   )
-// }
 
 type GistResponse = {}
 
