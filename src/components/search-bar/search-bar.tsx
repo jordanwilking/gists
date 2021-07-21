@@ -1,18 +1,12 @@
 import React, { useState } from 'react'
-import {
-  IconButton,
-  InputBase,
-  InputBaseProps,
-  Paper,
-  PaperProps,
-  Tooltip,
-} from '@material-ui/core'
+import IconButton from '@material-ui/core/IconButton'
+import InputBase, { InputBaseProps } from '@material-ui/core/InputBase'
+import Paper, { PaperProps } from '@material-ui/core/Paper'
+import Tooltip from '@material-ui/core/Tooltip'
 import SearchIcon from '@material-ui/icons/Search'
-import { getSampleGist } from '../gist-search/sample-data'
 
 type SearchBarProps = {
-  // TODO: type
-  onSubmit: (gists: any) => void
+  onSubmit: (searchText: string) => void
   placeholder?: string
   PaperProps?: PaperProps
   InputProps?: InputBaseProps
@@ -23,15 +17,15 @@ const SearchBar = ({ onSubmit, placeholder, ...props }: SearchBarProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault()
+    onSubmit(searchInput)
     setSearchInput('')
-    onSubmit(getSampleGist().data)
   }
 
   return (
     // TODO: onHover styles
     <Paper
       component='form'
-      className='flex items-center justify-between w-2/5 px-4 py-2'
+      className='flex items-center justify-between w-3/5 xl:w-2/5 px-4 py-2 hover:border-2 hover:border-pink-700'
       onSubmit={handleSubmit}
       {...props.PaperProps}
     >

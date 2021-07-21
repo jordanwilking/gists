@@ -3,6 +3,8 @@ import Tooltip, { TooltipProps } from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import DescriptionIcon from '@material-ui/icons/Description'
 import { SvgIconProps } from '@material-ui/core'
+import { truncate } from '../../utilities/string-utils'
+import HoverInfo from '../hover-info/hover-info'
 
 type TruncatedLine = {
   text: string
@@ -15,28 +17,24 @@ type TruncatedLine = {
   IconProps?: SvgIconProps
 }
 
-const TruncatedLine = ({ text, maxLength, ...props }: TruncatedLine) => {
+const TruncatedLine = ({
+  text,
+  maxLength,
+  DivProps,
+  ...props
+}: TruncatedLine) => {
   let displayText
 
   if (text.length > maxLength) {
-    displayText = text.slice(0, maxLength) + '...'
+    displayText = truncate(text, maxLength)
   }
 
   return (
-    <div {...props.DivProps}>
+    <div {...DivProps}>
       {displayText ? (
         <>
           {displayText}
-          <Tooltip
-            title={<Typography variant='body2'>{text}</Typography>}
-            {...props.TooltipProps}
-          >
-            <DescriptionIcon
-              fontSize='small'
-              className='mx-2'
-              {...props.IconProps}
-            />
-          </Tooltip>
+          <HoverInfo info={text} {...props} />
         </>
       ) : (
         <>{text}</>
