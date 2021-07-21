@@ -1,31 +1,19 @@
 import React, { useState } from 'react'
 // TODO: single imports
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  Link,
-  Menu,
-  MenuItem,
-  Paper,
-  Tooltip,
-  useTheme,
-} from '@material-ui/core'
+import { Grid, Link, Menu, MenuItem, Paper } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import SearchBar from '../search-bar/search-bar'
 import { getSampleGist, getSampleGistFile } from './sample-data'
-import Typography from '@material-ui/core/Typography'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import IconButton from '@material-ui/core/IconButton'
 import StarOutlineIcon from '@material-ui/icons/StarOutline'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
+import TooltipButton from '../buttons/tooltip-button'
+import TruncatedLine from '../truncated-line/truncated-line'
 
 const GistSearch = () => {
-  // TODO: make width styles
   const [gists, setGists] = useState<Gist[]>(getSampleGist().data as Gist[])
 
   const handleSearchSubmit = (gists: Gist[]) => {
@@ -71,7 +59,6 @@ const GistSearch = () => {
           {gists.map((gist) => {
             return <Gist key={gist.id} gist={gist} />
           })}
-          {/* <GistContainer gists={gists} /> */}
         </Grid>
       </Grid>
     </Paper>
@@ -103,81 +90,83 @@ type GistDisplayProps = {
 
 // TODO: props
 const GistCard = ({ gist, file }: GistDisplayProps) => {
-  const { palette } = useTheme()
   const numOfFiles = Object.keys(gist.files).length
   const sampleGist = getSampleGistFile()
 
   return (
     <Paper
-      className='hidden relative md:inline-block w-full h-full min-h-64'
+      className='hidden md:flex flex-col w-full h-full min-h-64'
       elevation={8}
       // style={{ border: '2px solid green' }}
     >
       <div
-        className='w-full m-2'
+        className=' flex flex-row justify-between w-full m-2'
         // style={{ border: '2px solid blue' }}
       >
         <div>
-          <Link color='secondary' href={gist.html_url}>
-            {file.filename}
-          </Link>
-          {` - created ${gist.created_at}`}
-          {` - ${numOfFiles} file${numOfFiles > 1 ? 's' : ''}`}
+          <div>
+            <Link color='secondary' href={gist.html_url}>
+              {file.filename}
+            </Link>
+            {` - created ${gist.created_at}`}
+            {` - ${numOfFiles} file${numOfFiles > 1 ? 's' : ''}`}
+          </div>
+          {gist.description && (
+            <TruncatedLine text={gist.description} maxLength={65} />
+          )}
         </div>
-        <div>{gist.description}</div>
+        <GistOptions gist={gist} />
       </div>
-      <Divider variant='middle' />
       <div
-        className='h-3/4 overflow-y-auto mx-2 mb-2'
+        className='h-3/4 overflow-y-auto mx-2 mb-2 pt-0'
         // style={{ border: '2px solid red' }}
       >
         <SyntaxHighlighter
           language={file?.language ? file.language.toLowerCase() : undefined}
           showLineNumbers
           style={dracula}
+          customStyle={{ margin: 0 }}
         >
           {sampleGist}
         </SyntaxHighlighter>
       </div>
-      <div
-        className='absolute top-0 right-0 z-10'
-        style={{
-          backgroundColor: palette.background.paper,
-          // border: '2px solid red',
-        }}
-      >
-        <Tooltip title='Copy'>
-          <IconButton onClick={() => navigator.clipboard.writeText(sampleGist)}>
-            <FileCopyIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title='Open'>
-          <IconButton onClick={() => window.open(gist.html_url)}>
-            <OpenInNewIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title='Favorite'>
-          <IconButton onClick={() => {}}>
-            <StarOutlineIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
     </Paper>
+  )
+}
+
+const GistOptions = ({ gist }: Partial<GistDisplayProps>) => {
+  const sampleGist = getSampleGistFile()
+  return (
+    <div className='mx-2'>
+      <TooltipButton
+        tipText='Copy'
+        onClick={() => navigator.clipboard.writeText(sampleGist)}
+      >
+        <FileCopyIcon />
+      </TooltipButton>
+      <TooltipButton tipText='Open' onClick={() => window.open(gist.html_url)}>
+        <OpenInNewIcon />
+      </TooltipButton>
+      <TooltipButton tipText='Favorite' onClick={() => {}}>
+        <StarOutlineIcon />
+      </TooltipButton>
+    </div>
   )
 }
 
 // TODO: type and consolidate
 const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
   return (
-    <div
-      className='flex w-full justify-between items-center md:hidden'
-      style={{ border: '2px solid green' }}
+    <Paper
+      className='flex w-full justify-between items-center md:hidden pl-2'
+      elevation={8}
+      // style={{ border: '2px solid green' }}
     >
       <Link color='secondary' href={gist.html_url}>
         {file.filename}
       </Link>
       <VertMenu />
-    </div>
+    </Paper>
   )
 }
 
