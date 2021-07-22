@@ -66,7 +66,7 @@ const GistIconOptions = ({ gist, url, content }: GistOptionsProps) => {
         <OpenInNewIcon />
       </TooltipButton>
       <TooltipButton
-        tipText='Star'
+        tipText={isStarred ? 'Unstar' : 'Star'}
         onClick={() => {
           if (isStarred) {
             removeGist(gist.id)

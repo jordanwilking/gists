@@ -54,7 +54,7 @@ const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
               {expanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
             </TooltipButton>
             <TooltipButton
-              tipText='Star'
+              tipText={isStarred ? 'Unstar' : 'Star'}
               onClick={() => {
                 if (isStarred) {
                   removeGist(gist.id)
