@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import { GistFileWithContent, GistWithContent } from '../../types/gist-types'
@@ -6,28 +6,59 @@ import { GistOptions } from './gist-options'
 import HoverInfo from '../hover-info/hover-info'
 import { pluralize } from '../../utilities/string-utils'
 import Typography from '@material-ui/core/Typography'
+import Collapse from '@material-ui/core/Collapse'
+import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore'
+import UnfoldLessIcon from '@material-ui/icons/UnfoldLess'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import TooltipButton from '../buttons/tooltip-button'
 
 type GistDisplayProps = {
   gist: GistWithContent
   file: GistFileWithContent
 }
+const toLower = (str: string | undefined) =>
+  str ? str.toLowerCase() : undefined
 
+// TODO: anyway to clean this up?
 const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
+  const [expanded, setExpanded] = useState(false)
   const fileNames = Object.keys(gist.files)
   const fileCount = fileNames.length
 
   return (
-    <Paper
-      className='flex w-full justify-between items-center md:hidden pl-2'
-      elevation={8}
-    >
-      <div className='flex flex-row items-center'>
-        <Link color='secondary' href={gist.html_url} className='mr-2'>
-          {file.filename}
-        </Link>
-        <HoverInfo info={<GistOverview gist={gist} fileCount={fileCount} />} />
+    <Paper className='flex w-full md:hidden' elevation={8}>
+      <div className='flex h-full w-full flex-col'>
+        <div className='flex h-full w-full justify-between items-center pl-2'>
+          <div className='flex flex-row items-center'>
+            <Link color='secondary' href={gist.html_url} className='mr-2'>
+              {file.filename}
+            </Link>
+            <HoverInfo
+              info={<GistOverview gist={gist} fileCount={fileCount} />}
+            />
+          </div>
+          <div>
+            <TooltipButton
+              tipText={expanded ? 'Collapse' : 'Expand'}
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
+            </TooltipButton>
+            <GistOptions listView url={gist.html_url} content={file.content} />
+          </div>
+        </div>
+        <Collapse in={expanded} className='overflow-y-auto mx-2 mb-2 pt-0'>
+          <SyntaxHighlighter
+            language={toLower(file?.language)}
+            showLineNumbers
+            style={dracula}
+            customStyle={{ margin: 0 }}
+          >
+            {file.content}
+          </SyntaxHighlighter>
+        </Collapse>
       </div>
-      <GistOptions listView url={gist.html_url} content={file.content} />
     </Paper>
   )
 }

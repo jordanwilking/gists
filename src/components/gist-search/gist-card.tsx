@@ -12,26 +12,21 @@ type GistCardProps = {
   gist: GistWithContent
 }
 
-// TODO: props
 const GistCard = ({ gist }: GistCardProps) => {
   const fileNames = Object.keys(gist.files)
   const fileCount = fileNames.length
-  // TODO: add content to this type
   const file = gist.files[fileNames[0]]
 
   const toLower = (str: string | undefined) =>
     str ? str.toLowerCase() : undefined
 
   return (
-    <Paper
-      className='hidden md:flex flex-col w-full h-full min-h-64'
-      elevation={8}
-    >
-      <div className=' flex flex-row justify-between w-full m-2'>
+    <Paper className='hidden md:flex flex-col w-full h-full' elevation={8}>
+      <div className='flex flex-row justify-between w-full m-2'>
         <GistDetails gist={gist} file={file} fileCount={fileCount} />
         <GistOptions url={gist.html_url} content={file.content} />
       </div>
-      <div className='h-3/4 overflow-y-auto mx-2 mb-2 pt-0'>
+      <div className='overflow-y-auto mx-2 mb-2 pt-0'>
         <SyntaxHighlighter
           language={toLower(file?.language)}
           showLineNumbers

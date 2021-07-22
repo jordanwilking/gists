@@ -37,10 +37,7 @@ const Gist = ({ gistId, gist }: GistProps) => {
   const file = gist.files[fileNames[0]]
 
   return (
-    <div
-      className='flex w-full items-center md:h-80 xl:w-1/2 p-2'
-      // style={{ border: '2px solid purple' }}
-    >
+    <div className='flex w-full items-center md:max-h-80 xl:w-1/2 p-2'>
       <GistSmallCard gist={gist} file={file} />
       <GistCard gist={gist} />
     </div>
