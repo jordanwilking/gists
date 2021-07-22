@@ -4,17 +4,21 @@ import MenuItem from '@material-ui/core/MenuItem'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import IconButton from '@material-ui/core/IconButton'
 import StarOutlineIcon from '@material-ui/icons/StarOutline'
+import StarIcon from '@material-ui/icons/Star'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import TooltipButton from '../buttons/tooltip-button'
 import useSnack from '../snack/use-snack'
 import { SUCCESSFUL_ACTION } from '../snack/snack-props-presets'
+import { useStarredStorage } from '../starred-storage/starred-storage.provider'
+import { GistWithContent } from '../../types/gist-types'
 
 type GistOptionsParentProps = {
   listView?: boolean
 } & GistOptionsProps
 
 type GistOptionsProps = {
+  gist: GistWithContent
   url: string
   content: string
 }
@@ -25,6 +29,7 @@ type Option = {
 }
 
 export const GistOptions = ({
+  gist,
   url,
   content,
   listView: listDisplay,
@@ -32,16 +37,19 @@ export const GistOptions = ({
   return (
     <>
       {listDisplay ? (
-        <GistMenuOptions url={url} content={content} />
+        <GistMenuOptions gist={gist} url={url} content={content} />
       ) : (
-        <GistIconOptions url={url} content={content} />
+        <GistIconOptions gist={gist} url={url} content={content} />
       )}
     </>
   )
 }
 
-const GistIconOptions = ({ url, content }: GistOptionsProps) => {
+const GistIconOptions = ({ gist, url, content }: GistOptionsProps) => {
   const addSnack = useSnack()
+  // TODO: hook to consolidate this logic? with isStarred?
+  const { addGist, removeGist, starredGists } = useStarredStorage()
+  const isStarred = starredGists.find((starred) => starred.id === gist.id)
 
   return (
     <div className='mx-2'>
@@ -58,20 +66,26 @@ const GistIconOptions = ({ url, content }: GistOptionsProps) => {
         <OpenInNewIcon />
       </TooltipButton>
       <TooltipButton
-        tipText='Favorite'
+        tipText='Star'
         onClick={() => {
-          addSnack('Favorited!', SUCCESSFUL_ACTION)
+          if (isStarred) {
+            removeGist(gist.id)
+            addSnack('Unstarred!', SUCCESSFUL_ACTION)
+          } else {
+            addGist(gist)
+            addSnack('Starred!', SUCCESSFUL_ACTION)
+          }
         }}
       >
-        <StarOutlineIcon />
+        {isStarred ? <StarIcon /> : <StarOutlineIcon />}
       </TooltipButton>
     </div>
   )
 }
 
-const GistMenuOptions = ({ url, content }: GistOptionsProps) => {
+const GistMenuOptions = ({ gist, url, content }: GistOptionsProps) => {
   const { anchorEl, open, closeMenu, updateAnchor } = useMenu()
-  const options = useGistOptions({ url, content })
+  const options = useGistOptions({ gist, url, content })
 
   return (
     <>
@@ -106,16 +120,18 @@ const useMenu = () => {
   return { anchorEl, open: Boolean(anchorEl), closeMenu, updateAnchor }
 }
 
-const useGistOptions = ({ url, content }: GistOptionsProps): Option[] => {
+const useGistOptions = ({ gist, url, content }: GistOptionsProps): Option[] => {
   const [options, setOptions] = useState<Option[]>([])
   const addSnack = useSnack()
+  const { addGist } = useStarredStorage()
 
   useEffect(() => {
     setOptions([
       {
-        name: 'Favorite',
+        name: 'Star',
         onClick: () => {
-          addSnack('Favorited!', SUCCESSFUL_ACTION)
+          addGist(gist)
+          addSnack('Starred!', SUCCESSFUL_ACTION)
         },
       },
       {
@@ -130,7 +146,7 @@ const useGistOptions = ({ url, content }: GistOptionsProps): Option[] => {
         },
       },
     ])
-  }, [url, content])
+  }, [gist, url, content])
 
   return options
 }

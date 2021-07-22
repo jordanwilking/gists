@@ -12,6 +12,11 @@ import UnfoldLessIcon from '@material-ui/icons/UnfoldLess'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import TooltipButton from '../buttons/tooltip-button'
+import useSnack from '../snack/use-snack'
+import { useStarredStorage } from '../starred-storage/starred-storage.provider'
+import { SUCCESSFUL_ACTION } from '../snack/snack-props-presets'
+import StarOutlineIcon from '@material-ui/icons/StarOutline'
+import StarIcon from '@material-ui/icons/Star'
 
 type GistDisplayProps = {
   gist: GistWithContent
@@ -22,9 +27,12 @@ const toLower = (str: string | undefined) =>
 
 // TODO: anyway to clean this up?
 const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
+  const addSnack = useSnack()
   const [expanded, setExpanded] = useState(false)
   const fileNames = Object.keys(gist.files)
   const fileCount = fileNames.length
+  const { addGist, removeGist, starredGists } = useStarredStorage()
+  const isStarred = starredGists.find((starred) => starred.id === gist.id)
 
   return (
     <Paper className='flex w-full md:hidden' elevation={8}>
@@ -45,7 +53,26 @@ const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
             >
               {expanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
             </TooltipButton>
-            <GistOptions listView url={gist.html_url} content={file.content} />
+            <TooltipButton
+              tipText='Star'
+              onClick={() => {
+                if (isStarred) {
+                  removeGist(gist.id)
+                  addSnack('Unstarred!', SUCCESSFUL_ACTION)
+                } else {
+                  addGist(gist)
+                  addSnack('Starred!', SUCCESSFUL_ACTION)
+                }
+              }}
+            >
+              {isStarred ? <StarIcon /> : <StarOutlineIcon />}
+            </TooltipButton>
+            <GistOptions
+              listView
+              gist={gist}
+              url={gist.html_url}
+              content={file.content}
+            />
           </div>
         </div>
         <Collapse in={expanded} className='overflow-y-auto mx-2 mb-2 pt-0'>

@@ -24,7 +24,7 @@ const GistCard = ({ gist }: GistCardProps) => {
     <Paper className='hidden md:flex flex-col w-full h-full' elevation={8}>
       <div className='flex flex-row justify-between w-full m-2'>
         <GistDetails gist={gist} file={file} fileCount={fileCount} />
-        <GistOptions url={gist.html_url} content={file.content} />
+        <GistOptions gist={gist} url={gist.html_url} content={file.content} />
       </div>
       <div className='overflow-y-auto mx-2 mb-2 pt-0'>
         <SyntaxHighlighter
@@ -40,6 +40,7 @@ const GistCard = ({ gist }: GistCardProps) => {
   )
 }
 
+// TODO: move this out?
 type GistDetailsProps = {
   gist: GistWithContent
   file: GistFileWithContent
