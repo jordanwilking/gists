@@ -7,6 +7,8 @@ import StarOutlineIcon from '@material-ui/icons/StarOutline'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import TooltipButton from '../buttons/tooltip-button'
+import useSnack from '../snack/use-snack'
+import { SUCCESSFUL_ACTION } from '../snack/snack-props-presets'
 
 type GistOptionsParentProps = {
   listView?: boolean
@@ -38,26 +40,36 @@ export const GistOptions = ({
   )
 }
 
-export const GistIconOptions = ({ url, content }: GistOptionsProps) => {
+const GistIconOptions = ({ url, content }: GistOptionsProps) => {
+  const addSnack = useSnack()
+
   return (
     <div className='mx-2'>
       <TooltipButton
         tipText='Copy'
-        onClick={() => navigator.clipboard.writeText(content)}
+        onClick={() => {
+          navigator.clipboard.writeText(content)
+          addSnack('Copied!', SUCCESSFUL_ACTION)
+        }}
       >
         <FileCopyIcon />
       </TooltipButton>
       <TooltipButton tipText='Open' onClick={() => window.open(url)}>
         <OpenInNewIcon />
       </TooltipButton>
-      <TooltipButton tipText='Favorite' onClick={() => {}}>
+      <TooltipButton
+        tipText='Favorite'
+        onClick={() => {
+          addSnack('Favorited!', SUCCESSFUL_ACTION)
+        }}
+      >
         <StarOutlineIcon />
       </TooltipButton>
     </div>
   )
 }
 
-export const GistMenuOptions = ({ url, content }: GistOptionsProps) => {
+const GistMenuOptions = ({ url, content }: GistOptionsProps) => {
   const { anchorEl, open, closeMenu, updateAnchor } = useMenu()
   const options = useGistOptions({ url, content })
 
@@ -96,12 +108,15 @@ const useMenu = () => {
 
 const useGistOptions = ({ url, content }: GistOptionsProps): Option[] => {
   const [options, setOptions] = useState<Option[]>([])
+  const addSnack = useSnack()
 
   useEffect(() => {
     setOptions([
       {
         name: 'Favorite',
-        onClick: () => {},
+        onClick: () => {
+          addSnack('Favorited!', SUCCESSFUL_ACTION)
+        },
       },
       {
         name: 'Open',
@@ -109,7 +124,10 @@ const useGistOptions = ({ url, content }: GistOptionsProps): Option[] => {
       },
       {
         name: 'Copy',
-        onClick: () => navigator.clipboard.writeText(content),
+        onClick: () => {
+          navigator.clipboard.writeText(content)
+          addSnack('Copied!', SUCCESSFUL_ACTION)
+        },
       },
     ])
   }, [url, content])
