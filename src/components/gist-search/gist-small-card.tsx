@@ -31,8 +31,8 @@ const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
   const [expanded, setExpanded] = useState(false)
   const fileNames = Object.keys(gist.files)
   const fileCount = fileNames.length
-  const { addGist, removeGist, starredGists } = useStarredStorage()
-  const isStarred = starredGists.find((starred) => starred.id === gist.id)
+  const { addGist, removeGist, isStarred, starredGists } = useStarredStorage()
+  const isStarredGist = isStarred(gist)
 
   return (
     <Paper className='flex w-full md:hidden' elevation={8}>
@@ -54,7 +54,7 @@ const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
               {expanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
             </TooltipButton>
             <TooltipButton
-              tipText={isStarred ? 'Unstar' : 'Star'}
+              tipText={isStarredGist ? 'Unstar' : 'Star'}
               onClick={() => {
                 if (isStarred) {
                   removeGist(gist.id)
@@ -65,7 +65,7 @@ const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
                 }
               }}
             >
-              {isStarred ? <StarIcon /> : <StarOutlineIcon />}
+              {isStarredGist ? <StarIcon /> : <StarOutlineIcon />}
             </TooltipButton>
             <GistOptions
               listView

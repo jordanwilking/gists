@@ -48,8 +48,8 @@ export const GistOptions = ({
 const GistIconOptions = ({ gist, url, content }: GistOptionsProps) => {
   const addSnack = useSnack()
   // TODO: hook to consolidate this logic? with isStarred?
-  const { addGist, removeGist, starredGists } = useStarredStorage()
-  const isStarred = starredGists.find((starred) => starred.id === gist.id)
+  const { addGist, removeGist, isStarred, starredGists } = useStarredStorage()
+  const isStarredGist = isStarred(gist)
 
   return (
     <div className='mx-2'>
@@ -66,7 +66,7 @@ const GistIconOptions = ({ gist, url, content }: GistOptionsProps) => {
         <OpenInNewIcon />
       </TooltipButton>
       <TooltipButton
-        tipText={isStarred ? 'Unstar' : 'Star'}
+        tipText={isStarredGist ? 'Unstar' : 'Star'}
         onClick={() => {
           if (isStarred) {
             removeGist(gist.id)
@@ -77,7 +77,7 @@ const GistIconOptions = ({ gist, url, content }: GistOptionsProps) => {
           }
         }}
       >
-        {isStarred ? <StarIcon /> : <StarOutlineIcon />}
+        {isStarredGist ? <StarIcon /> : <StarOutlineIcon />}
       </TooltipButton>
     </div>
   )
@@ -127,13 +127,6 @@ const useGistOptions = ({ gist, url, content }: GistOptionsProps): Option[] => {
 
   useEffect(() => {
     setOptions([
-      {
-        name: 'Star',
-        onClick: () => {
-          addGist(gist)
-          addSnack('Starred!', SUCCESSFUL_ACTION)
-        },
-      },
       {
         name: 'Open',
         onClick: () => window.open(url),

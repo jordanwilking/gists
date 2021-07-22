@@ -26,4 +26,11 @@
   .min-h-64 {
     min-height: 16rem;
   }
+  .focus-within\:border-muipink-700:focus-within {
+    border-color: #f50057;
+  }
+  html {
+    --scrollbarBG: #cfd8dc;
+    --thumbBG: #90a4ae;
+  }
 }

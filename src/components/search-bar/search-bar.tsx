@@ -21,11 +21,10 @@ const SearchBar = ({ onSubmit, placeholder, ...props }: SearchBarProps) => {
     setSearchInput('')
   }
 
-  // TODO: theme onHover styles
   return (
     <Paper
       component='form'
-      className='flex items-center justify-between w-3/5 xl:w-2/5 px-4 py-2 focus-within:border-2 focus-within:border-pink-700'
+      className='flex items-center justify-between w-3/5 xl:w-2/5 px-4 py-2 focus-within:border-2 focus-within:border-muipink-700'
       onSubmit={handleSubmit}
       {...props.PaperProps}
     >

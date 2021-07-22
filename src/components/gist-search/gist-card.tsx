@@ -2,11 +2,11 @@ import React from 'react'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import TruncatedLine from '../truncated-line/truncated-line'
 import { GistFileWithContent, GistWithContent } from '../../types/gist-types'
 import { pluralize } from '../../utilities/string-utils'
 import { GistOptions } from './gist-options'
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 type GistCardProps = {
   gist: GistWithContent
@@ -30,6 +30,7 @@ const GistCard = ({ gist }: GistCardProps) => {
         <SyntaxHighlighter
           language={toLower(file?.language)}
           showLineNumbers
+          wrapLongLines
           style={dracula}
           customStyle={{ margin: 0 }}
         >

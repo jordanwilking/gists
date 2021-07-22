@@ -10,6 +10,7 @@ module.exports = {
   variants: {
     extend: {
       borderWidth: ['focus-within'],
+      overflow: ['hover'],
     },
   },
   plugins: [],

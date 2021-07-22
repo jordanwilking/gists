@@ -5,6 +5,7 @@ type StarredStorageContextType = {
   starredGists: GistWithContent[]
   addGist: (gist: GistWithContent) => GistWithContent[]
   removeGist: (id: string) => GistWithContent[]
+  isStarred: (gist: GistWithContent) => boolean
 }
 
 export const StarredStorageContext = createContext(
@@ -50,9 +51,12 @@ export const StarredStorageProvider = ({ children }: Props) => {
     return newGists
   }
 
+  const isStarred = (gist: GistWithContent) =>
+    Boolean(starredGists.find((starred) => starred.id === gist.id))
+
   return (
     <StarredStorageContext.Provider
-      value={{ addGist, removeGist, starredGists }}
+      value={{ starredGists, addGist, removeGist, isStarred }}
     >
       {children}
     </StarredStorageContext.Provider>
