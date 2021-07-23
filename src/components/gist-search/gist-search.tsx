@@ -7,8 +7,17 @@ import Gist from './gist'
 import axios from 'axios'
 import GistSearchDetails from './gist-search-detail'
 
+/**
+ * Grabs previously search's gists from local storage
+ * Return an empty array if no gists were saved
+ */
+const getPrevSearch = (): GistType[] => {
+  const prevSearch = localStorage.getItem('prevSearch')
+  return prevSearch ? JSON.parse(prevSearch) : []
+}
+
 const GistSearch = () => {
-  const [gists, setGists] = useState<GistType[]>([])
+  const [gists, setGists] = useState<GistType[]>(getPrevSearch())
 
   const handleSubmit = async (searchInput: string) => {
     // TODO: error handling, remove page limit
@@ -16,6 +25,7 @@ const GistSearch = () => {
       `https://api.github.com/users/${searchInput}/gists`
     )
 
+    localStorage.setItem('prevSearch', JSON.stringify(res.data))
     setGists(res.data)
   }
 
@@ -34,8 +44,8 @@ const GistSearch = () => {
             onSubmit={handleSubmit}
             placeholder='Search Github Gists'
           />
+          {!!gists.length && <GistSearchDetails gists={gists} />}
         </Grid>
-        {!!gists.length && <GistSearchDetails gists={gists} />}
         <Grid container item className='overflow-y-auto p-2'>
           {gists.map((gist) => {
             return <Gist key={gist.id} gistId={gist.id} />
