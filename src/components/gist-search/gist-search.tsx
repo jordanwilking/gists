@@ -2,25 +2,21 @@ import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import SearchBar from '../search-bar/search-bar'
-import { getSampleGistWithFileContent } from './sample-data'
-import { GistResponse, GistWithContent } from '../../types/gist-types'
+import { GistResponse, Gist as GistType } from '../../types/gist-types'
 import Gist from './gist'
 import axios from 'axios'
+import GistSearchDetails from './gist-search-detail'
 
 const GistSearch = () => {
-  const [gists, setGists] = useState<GistWithContent[]>(
-    getSampleGistWithFileContent().data as GistWithContent[]
-  )
+  const [gists, setGists] = useState<GistType[]>([])
 
   const handleSubmit = async (searchInput: string) => {
     // TODO: error handling, remove page limit
-    // const res: GistResponse = await axios.get(
-    //   `https://api.github.com/users/${searchInput}/gists?per_page=3`
-    // )
+    const res: GistResponse = await axios.get(
+      `https://api.github.com/users/${searchInput}/gists`
+    )
 
-    // setGists(res.data)
-
-    setGists(gists)
+    setGists(res.data)
   }
 
   return (
@@ -29,18 +25,20 @@ const GistSearch = () => {
         <Grid
           container
           item
+          direction='column'
           alignItems='center'
           justifyContent='center'
-          className='h-40'
+          className='h-40 min-h-40'
         >
           <SearchBar
             onSubmit={handleSubmit}
             placeholder='Search Github Gists'
           />
         </Grid>
+        {!!gists.length && <GistSearchDetails gists={gists} />}
         <Grid container item className='overflow-y-auto p-2'>
           {gists.map((gist) => {
-            return <Gist key={gist.id} gistId={gist.id} gist={gist} />
+            return <Gist key={gist.id} gistId={gist.id} />
           })}
         </Grid>
       </Grid>

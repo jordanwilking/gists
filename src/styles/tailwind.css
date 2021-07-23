@@ -23,6 +23,9 @@
   .h-9\/10 {
     height: 90%;
   }
+  .min-h-40 {
+    min-height: 10rem;
+  }
   .min-h-64 {
     min-height: 16rem;
   }

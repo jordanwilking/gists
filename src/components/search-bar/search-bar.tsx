@@ -12,11 +12,14 @@ type SearchBarProps = {
   InputProps?: InputBaseProps
 }
 
+const borderStyles =
+  ' border-transparent border-2 hover:border-muipink-700 focus-within:border-muipink-700'
+
 const SearchBar = ({ onSubmit, placeholder, ...props }: SearchBarProps) => {
   const [searchInput, setSearchInput] = useState('')
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
-    e.preventDefault()
+    e.preventDefault() // prevents default form redirect
     onSubmit(searchInput)
     setSearchInput('')
   }
@@ -24,14 +27,16 @@ const SearchBar = ({ onSubmit, placeholder, ...props }: SearchBarProps) => {
   return (
     <Paper
       component='form'
-      className='flex items-center justify-between w-3/5 xl:w-2/5 px-4 py-2 hover:border-muipink-700 focus-within:border-muipink-700'
+      className={
+        'flex items-center justify-between w-3/5 xl:w-2/5 pr-4' + borderStyles
+      }
       onSubmit={handleSubmit}
       elevation={8}
       {...props.PaperProps}
     >
       <InputBase
         placeholder={placeholder || 'Search'}
-        className='w-full'
+        className='h-full w-full pl-4 py-4'
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
         {...props.InputProps}

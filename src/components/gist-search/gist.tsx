@@ -8,32 +8,39 @@ import useGistFilesInfo from '../gist-card/useGistFilesInfo'
 
 type GistProps = {
   gistId: string
-  gist: GistWithContent
 }
 
-const Gist = ({ gistId, gist }: GistProps) => {
-  // const [gist, setGist] = useState<Gist>()
+const Gist = ({ gistId }: GistProps) => {
+  const [gist, setGist] = useState<GistWithContent>()
   const [isLoading, setIsLoading] = useState(true)
-  const fileInfo = useGistFilesInfo(gist)
 
-  // TODO: error
   useEffect(() => {
-    // axios
-    //   .get(`https://api.github.com/gists/${gistId}`)
-    //   .then((res) => {
-    //     setGist(res.data)
-    //     setIsLoading(false)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
-    setIsLoading(false)
+    axios
+      .get(`https://api.github.com/gists/${gistId}`)
+      .then((res) => {
+        setGist(res.data)
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        // TODO: this can post errors if no user
+        console.log(error)
+      })
   }, [])
 
   // TODO: skeleton
   if (isLoading) {
     return <div>Loading</div>
   }
+
+  return <GistCardDisplay gist={gist} />
+}
+
+type GistCardDisplayProps = {
+  gist: GistWithContent
+}
+
+const GistCardDisplay = ({ gist }: GistCardDisplayProps) => {
+  const fileInfo = useGistFilesInfo(gist)
 
   return (
     <div className='flex w-full items-center md:max-h-80 xl:w-1/2 p-2'>
