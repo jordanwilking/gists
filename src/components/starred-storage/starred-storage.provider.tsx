@@ -1,5 +1,9 @@
 import React, { createContext, useState, useContext } from 'react'
 import { GistWithContent } from '../../types/gist-types'
+import {
+  getGistsFromStorage,
+  setGistsInStorage,
+} from './starred-storage-accessors'
 
 type StarredStorageContextType = {
   starredGists: GistWithContent[]
@@ -14,21 +18,9 @@ export const StarredStorageContext = createContext(
 
 export const useStarredStorage = () => useContext(StarredStorageContext)
 
-const STORED_GISTS = 'storedGists'
 type Props = {
   children: React.ReactNode
 }
-
-/**
- * TODO: dupes
- */
-
-const getGistsFromStorage = (): GistWithContent[] => {
-  const storedGists = JSON.parse(localStorage.getItem(STORED_GISTS))
-  return storedGists ?? []
-}
-const setGistsInStorage = (gists: GistWithContent[]) =>
-  localStorage.setItem(STORED_GISTS, JSON.stringify(gists))
 
 export const StarredStorageProvider = ({ children }: Props) => {
   const [starredGists, setStarredGists] = useState<GistWithContent[]>(

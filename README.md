@@ -33,6 +33,12 @@ To get a local copy up and running follow these steps.
    npm start
    ```
 
+To run tests
+
+```sh
+npm test
+```
+
 <!-- IDEAS FOR IMPROVEMENT -->
 
 ## Ideas for Improvement
@@ -64,6 +70,9 @@ Some ideas for the project if it was intended for production
 - Consider consolidating card options
 - Performance
   - MUI Tooltip causes slowdown
+- More robust testing
+- More robust error-handling
+  - Validate gists before and after storing them
 
 <!-- CONTACT -->
 

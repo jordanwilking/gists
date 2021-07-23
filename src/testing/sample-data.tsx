@@ -26,7 +26,7 @@ export const getSampleGistFile = () => {
   }`
 }
 
-export const getSampleGist = () => {
+export const getSampleGists = () => {
   return {
     data: [
       {
@@ -1169,7 +1169,7 @@ export const getSampleGist = () => {
     request: {},
   }
 }
-export const getSampleGistWithFileContent = () => {
+export const getSampleGistsWithFileContent = () => {
   return {
     data: [
       {
