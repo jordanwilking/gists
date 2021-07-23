@@ -46,6 +46,9 @@ npm test
 Some ideas for the project if it was intended for production
 
 - Consider Redux or Graphql to better manage global data and caching
+- Caching
+  - Check if previous user's gists are in the cache before calling
+  - Store more user's gists at a time?
 - Theming
 - Improve mobile experience
 - Favorites route to display all starred gists
@@ -73,6 +76,9 @@ Some ideas for the project if it was intended for production
 - More robust testing
 - More robust error-handling
   - Validate gists before and after storing them
+- Skeleton improvements
+  - more detail
+  - shared styles with shadowed components?
 
 <!-- CONTACT -->
 
