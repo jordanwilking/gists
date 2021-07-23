@@ -24,8 +24,9 @@ const SearchBar = ({ onSubmit, placeholder, ...props }: SearchBarProps) => {
   return (
     <Paper
       component='form'
-      className='flex items-center justify-between w-3/5 xl:w-2/5 px-4 py-2 focus-within:border-2 focus-within:border-muipink-700'
+      className='flex items-center justify-between w-3/5 xl:w-2/5 px-4 py-2 hover:border-muipink-700 focus-within:border-muipink-700'
       onSubmit={handleSubmit}
+      elevation={8}
       {...props.PaperProps}
     >
       <InputBase

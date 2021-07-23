@@ -3,8 +3,6 @@ import Menu, { MenuProps } from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import IconButton from '@material-ui/core/IconButton'
-import StarOutlineIcon from '@material-ui/icons/StarOutline'
-import StarIcon from '@material-ui/icons/Star'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import TooltipButton from '../buttons/tooltip-button'
@@ -12,12 +10,22 @@ import useSnack from '../snack/use-snack'
 import { SUCCESSFUL_ACTION } from '../snack/snack-props-presets'
 import { useStarredStorage } from '../starred-storage/starred-storage.provider'
 import { GistWithContent } from '../../types/gist-types'
+import { GistFileInfo } from './useGistFilesInfo'
+import GistFilePager from './gist-file-pager'
+import StarButton from '../buttons/star-button'
 
 type GistOptionsParentProps = {
   listView?: boolean
 } & GistOptionsProps
 
 type GistOptionsProps = {
+  gist: GistWithContent
+  url: string
+  content: string
+  fileInfo: GistFileInfo
+}
+
+type tempGistOptionsProps = {
   gist: GistWithContent
   url: string
   content: string
@@ -32,6 +40,7 @@ export const GistOptions = ({
   gist,
   url,
   content,
+  fileInfo,
   listView: listDisplay,
 }: GistOptionsParentProps) => {
   return (
@@ -39,20 +48,33 @@ export const GistOptions = ({
       {listDisplay ? (
         <GistMenuOptions gist={gist} url={url} content={content} />
       ) : (
-        <GistIconOptions gist={gist} url={url} content={content} />
+        <GistIconOptions
+          gist={gist}
+          url={url}
+          content={content}
+          fileInfo={fileInfo}
+        />
       )}
     </>
   )
 }
 
-const GistIconOptions = ({ gist, url, content }: GistOptionsProps) => {
+const GistIconOptions = ({
+  gist,
+  url,
+  content,
+  fileInfo,
+}: GistOptionsProps) => {
   const addSnack = useSnack()
-  // TODO: hook to consolidate this logic? with isStarred?
-  const { addGist, removeGist, isStarred, starredGists } = useStarredStorage()
+  const { addGist, removeGist, isStarred } = useStarredStorage()
   const isStarredGist = isStarred(gist)
+
+  const handleStar = () => addGist(gist)
+  const handleUnstar = () => removeGist(gist.id)
 
   return (
     <div className='mx-2'>
+      <GistFilePager fileInfo={fileInfo} />
       <TooltipButton
         tipText='Copy'
         onClick={() => {
@@ -65,25 +87,16 @@ const GistIconOptions = ({ gist, url, content }: GistOptionsProps) => {
       <TooltipButton tipText='Open' onClick={() => window.open(url)}>
         <OpenInNewIcon />
       </TooltipButton>
-      <TooltipButton
-        tipText={isStarredGist ? 'Unstar' : 'Star'}
-        onClick={() => {
-          if (isStarred) {
-            removeGist(gist.id)
-            addSnack('Unstarred!', SUCCESSFUL_ACTION)
-          } else {
-            addGist(gist)
-            addSnack('Starred!', SUCCESSFUL_ACTION)
-          }
-        }}
-      >
-        {isStarredGist ? <StarIcon /> : <StarOutlineIcon />}
-      </TooltipButton>
+      <StarButton
+        isStarred={isStarredGist}
+        star={handleStar}
+        unstar={handleUnstar}
+      />
     </div>
   )
 }
 
-const GistMenuOptions = ({ gist, url, content }: GistOptionsProps) => {
+const GistMenuOptions = ({ gist, url, content }: tempGistOptionsProps) => {
   const { anchorEl, open, closeMenu, updateAnchor } = useMenu()
   const options = useGistOptions({ gist, url, content })
 
@@ -120,10 +133,13 @@ const useMenu = () => {
   return { anchorEl, open: Boolean(anchorEl), closeMenu, updateAnchor }
 }
 
-const useGistOptions = ({ gist, url, content }: GistOptionsProps): Option[] => {
+const useGistOptions = ({
+  gist,
+  url,
+  content,
+}: tempGistOptionsProps): Option[] => {
   const [options, setOptions] = useState<Option[]>([])
   const addSnack = useSnack()
-  const { addGist } = useStarredStorage()
 
   useEffect(() => {
     setOptions([

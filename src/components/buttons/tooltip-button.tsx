@@ -1,17 +1,38 @@
 import React, { ReactElement } from 'react'
-import Tooltip from '@material-ui/core/Tooltip'
-import IconButton from '@material-ui/core/IconButton'
+import Tooltip, { TooltipProps } from '@material-ui/core/Tooltip'
+import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
 
 type TooltipButtonProps = {
   children: ReactElement
   tipText: string
   onClick: React.MouseEventHandler<HTMLButtonElement>
+  disabled?: boolean
+  TooltipProps?: TooltipProps
+  IconButtonProps?: IconButtonProps
 }
 
-const TooltipButton = ({ children, tipText, onClick }: TooltipButtonProps) => {
+const TooltipButton = ({
+  children,
+  tipText,
+  onClick,
+  disabled,
+  ...props
+}: TooltipButtonProps) => {
   return (
-    <Tooltip title={tipText}>
-      <IconButton onClick={onClick}>{children}</IconButton>
+    <Tooltip
+      title={tipText}
+      PopperProps={{ disablePortal: true }}
+      {...props.TooltipProps}
+    >
+      <span>
+        <IconButton
+          onClick={onClick}
+          disabled={disabled}
+          {...props.IconButtonProps}
+        >
+          {children}
+        </IconButton>
+      </span>
     </Tooltip>
   )
 }

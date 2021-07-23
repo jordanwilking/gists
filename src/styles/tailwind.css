@@ -28,6 +28,11 @@
   }
   .focus-within\:border-muipink-700:focus-within {
     border-color: #f50057;
+    border-width: 2px;
+  }
+  .hover\:border-muipink-700:hover {
+    border-color: #f50057;
+    border-width: 2px;
   }
   html {
     --scrollbarBG: #cfd8dc;

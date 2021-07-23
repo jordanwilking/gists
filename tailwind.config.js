@@ -9,7 +9,7 @@ module.exports = {
   },
   variants: {
     extend: {
-      borderWidth: ['focus-within'],
+      borderWidth: ['focus-within', 'hover'],
       overflow: ['hover'],
     },
   },

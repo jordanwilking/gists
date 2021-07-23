@@ -1,38 +1,36 @@
 import React, { useState } from 'react'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
-import { GistFileWithContent, GistWithContent } from '../../types/gist-types'
-import { GistOptions } from './gist-options'
-import HoverInfo from '../hover-info/hover-info'
-import { pluralize } from '../../utilities/string-utils'
-import Typography from '@material-ui/core/Typography'
+import { GistWithContent } from '../../../types/gist-types'
+import { GistOptions } from '../gist-options'
+import HoverInfo from '../../hover-info/hover-info'
 import Collapse from '@material-ui/core/Collapse'
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore'
 import UnfoldLessIcon from '@material-ui/icons/UnfoldLess'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import TooltipButton from '../buttons/tooltip-button'
-import useSnack from '../snack/use-snack'
-import { useStarredStorage } from '../starred-storage/starred-storage.provider'
-import { SUCCESSFUL_ACTION } from '../snack/snack-props-presets'
-import StarOutlineIcon from '@material-ui/icons/StarOutline'
-import StarIcon from '@material-ui/icons/Star'
+import TooltipButton from '../../buttons/tooltip-button'
+import { useStarredStorage } from '../../starred-storage/starred-storage.provider'
+import { GistFileInfo } from '../useGistFilesInfo'
+import { toLower } from '../gist-card-utils'
+import GistOverview from './gist-overview'
+import GistFilePager from '../gist-file-pager'
+import StarButton from '../../buttons/star-button'
 
 type GistDisplayProps = {
   gist: GistWithContent
-  file: GistFileWithContent
+  fileInfo: GistFileInfo
 }
-const toLower = (str: string | undefined) =>
-  str ? str.toLowerCase() : undefined
 
 // TODO: anyway to clean this up?
-const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
-  const addSnack = useSnack()
+const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
   const [expanded, setExpanded] = useState(false)
-  const fileNames = Object.keys(gist.files)
-  const fileCount = fileNames.length
-  const { addGist, removeGist, isStarred, starredGists } = useStarredStorage()
+  const { addGist, removeGist, isStarred } = useStarredStorage()
   const isStarredGist = isStarred(gist)
+  const { activeFile: file, fileCount } = fileInfo
+
+  const handleStar = () => addGist(gist)
+  const handleUnstar = () => removeGist(gist.id)
 
   return (
     <Paper className='flex w-full md:hidden' elevation={8}>
@@ -47,31 +45,24 @@ const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
             />
           </div>
           <div>
+            <GistFilePager fileInfo={fileInfo} />
             <TooltipButton
               tipText={expanded ? 'Collapse' : 'Expand'}
               onClick={() => setExpanded(!expanded)}
             >
               {expanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
             </TooltipButton>
-            <TooltipButton
-              tipText={isStarredGist ? 'Unstar' : 'Star'}
-              onClick={() => {
-                if (isStarred) {
-                  removeGist(gist.id)
-                  addSnack('Unstarred!', SUCCESSFUL_ACTION)
-                } else {
-                  addGist(gist)
-                  addSnack('Starred!', SUCCESSFUL_ACTION)
-                }
-              }}
-            >
-              {isStarredGist ? <StarIcon /> : <StarOutlineIcon />}
-            </TooltipButton>
+            <StarButton
+              isStarred={isStarredGist}
+              star={handleStar}
+              unstar={handleUnstar}
+            />
             <GistOptions
               listView
               gist={gist}
               url={gist.html_url}
               content={file.content}
+              fileInfo={fileInfo}
             />
           </div>
         </div>
@@ -87,24 +78,6 @@ const GistSmallCard = ({ gist, file }: GistDisplayProps) => {
         </Collapse>
       </div>
     </Paper>
-  )
-}
-
-type GistOverviewProps = {
-  gist: GistWithContent
-  fileCount: number
-}
-
-const GistOverview = ({ gist, fileCount }: GistOverviewProps) => {
-  const fileText = pluralize('file', fileCount)
-
-  return (
-    <div>
-      <Typography variant='subtitle1'>
-        {`created ${gist.created_at} - ${fileCount} ${fileText}`}
-      </Typography>
-      <Typography variant='body2'>{gist.description}</Typography>
-    </div>
   )
 }
 
