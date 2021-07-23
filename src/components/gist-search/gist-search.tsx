@@ -18,15 +18,19 @@ const getPrevSearch = (): GistType[] => {
 
 const GistSearch = () => {
   const [gists, setGists] = useState<GistType[]>(getPrevSearch())
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (searchInput: string) => {
     // TODO: error handling
+    setIsLoading(true)
+
     const res: GistResponse = await axios.get(
       `https://api.github.com/users/${searchInput}/gists`
     )
 
     localStorage.setItem('prevSearch', JSON.stringify(res.data))
     setGists(res.data)
+    setIsLoading(false)
   }
 
   return (
@@ -43,6 +47,7 @@ const GistSearch = () => {
           <SearchBar
             onSubmit={handleSubmit}
             placeholder='Search Github Gists'
+            isLoading={isLoading}
           />
           {!!gists.length && <GistSearchDetails gists={gists} />}
         </Grid>

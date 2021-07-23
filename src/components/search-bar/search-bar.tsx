@@ -4,10 +4,12 @@ import InputBase, { InputBaseProps } from '@material-ui/core/InputBase'
 import Paper, { PaperProps } from '@material-ui/core/Paper'
 import Tooltip from '@material-ui/core/Tooltip'
 import SearchIcon from '@material-ui/icons/Search'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 type SearchBarProps = {
   onSubmit: (searchText: string) => void
   placeholder?: string
+  isLoading?: boolean
   PaperProps?: PaperProps
   InputProps?: InputBaseProps
 }
@@ -15,7 +17,12 @@ type SearchBarProps = {
 const borderStyles =
   ' border-transparent border-2 hover:border-muipink-700 focus-within:border-muipink-700'
 
-const SearchBar = ({ onSubmit, placeholder, ...props }: SearchBarProps) => {
+const SearchBar = ({
+  onSubmit,
+  isLoading,
+  placeholder,
+  ...props
+}: SearchBarProps) => {
   const [searchInput, setSearchInput] = useState('')
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
@@ -28,24 +35,30 @@ const SearchBar = ({ onSubmit, placeholder, ...props }: SearchBarProps) => {
     <Paper
       component='form'
       className={
-        'flex items-center justify-between w-3/5 xl:w-2/5 pr-4' + borderStyles
+        'flex items-center justify-between w-3/5 xl:w-2/5 pr-4 ' + borderStyles
       }
       onSubmit={handleSubmit}
       elevation={8}
       {...props.PaperProps}
     >
       <InputBase
+        autoFocus
         placeholder={placeholder || 'Search'}
         className='h-full w-full pl-4 py-4'
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
         {...props.InputProps}
       />
-      <Tooltip title='Search'>
-        <IconButton type='submit'>
-          <SearchIcon />
-        </IconButton>
-      </Tooltip>
+      <div className='flex items-center'>
+        {isLoading && (
+          <CircularProgress color='inherit' size={21} className='mr-2' />
+        )}
+        <Tooltip title='Search'>
+          <IconButton type='submit'>
+            <SearchIcon />
+          </IconButton>
+        </Tooltip>
+      </div>
     </Paper>
   )
 }

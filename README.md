@@ -62,7 +62,7 @@ Some ideas for the project if it was intended for production
   - Currently the search works pretty well as a standalone, with data saved locally
 - Animations
   - Search bar could start in middle and move up when searched
-- Store last X search terms and autocomplete
+- Store last X search terms and autocomplete/predictive text
 - Priority heap for snackbars
   - Prioritize: errors, warning, info, success (might be a bit more nuanced)
   - Decay snacks when too many have accumulated
