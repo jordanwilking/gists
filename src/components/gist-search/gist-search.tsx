@@ -20,7 +20,7 @@ const GistSearch = () => {
   const [gists, setGists] = useState<GistType[]>(getPrevSearch())
 
   const handleSubmit = async (searchInput: string) => {
-    // TODO: error handling, remove page limit
+    // TODO: error handling
     const res: GistResponse = await axios.get(
       `https://api.github.com/users/${searchInput}/gists`
     )

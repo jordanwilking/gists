@@ -61,6 +61,7 @@ Some ideas for the project if it was intended for production
 - Virtualize card list, so fewer are rendered at a time
 - Consider server side rendering
 - Improve reusability of some components
+- Consider consolidating card options
 - Performance
   - MUI Tooltip causes slowdown
 

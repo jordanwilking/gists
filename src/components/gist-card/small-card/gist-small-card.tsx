@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import { GistWithContent } from '../../../types/gist-types'
-import { GistOptions } from '../gist-options'
 import HoverInfo from '../../hover-info/hover-info'
 import Collapse from '@material-ui/core/Collapse'
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore'
@@ -16,13 +15,13 @@ import { toLower } from '../gist-card-utils'
 import GistOverview from './gist-overview'
 import GistFilePager from '../gist-file-pager'
 import StarButton from '../../buttons/star-button'
+import GistMenuOptions from './gist-menu-options'
 
 type GistDisplayProps = {
   gist: GistWithContent
   fileInfo: GistFileInfo
 }
 
-// TODO: anyway to clean this up?
 const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
   const [expanded, setExpanded] = useState(false)
   const { addGist, removeGist, isStarred } = useStarredStorage()
@@ -57,12 +56,10 @@ const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
               star={handleStar}
               unstar={handleUnstar}
             />
-            <GistOptions
-              listView
+            <GistMenuOptions
               gist={gist}
               url={gist.html_url}
               content={file.content}
-              fileInfo={fileInfo}
             />
           </div>
         </div>
