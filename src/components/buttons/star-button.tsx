@@ -14,18 +14,20 @@ type StarButtonProps = {
 const StarButton = ({ isStarred, star, unstar }: StarButtonProps) => {
   const addSnack = useSnack()
 
+  const handleStar = () => {
+    star()
+    addSnack('Starred!', { ...SUCCESSFUL_ACTION, undo: handleUnstar })
+  }
+
+  const handleUnstar = () => {
+    unstar()
+    addSnack('Unstarred!', { ...SUCCESSFUL_ACTION, undo: handleStar })
+  }
+
   return (
     <TooltipButton
       tipText={isStarred ? 'Unstar' : 'Star'}
-      onClick={() => {
-        if (isStarred) {
-          unstar()
-          addSnack('Unstarred!', SUCCESSFUL_ACTION)
-        } else {
-          star()
-          addSnack('Starred!', SUCCESSFUL_ACTION)
-        }
-      }}
+      onClick={isStarred ? handleUnstar : handleStar}
     >
       {isStarred ? <StarIcon /> : <StarOutlineIcon />}
     </TooltipButton>
