@@ -1,11 +1,11 @@
-import React from 'react'
 import Paper from '@material-ui/core/Paper'
+import React from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { GistWithContent } from '../../../types/gist-types'
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import GistDetails from './gist-details'
-import { GistFileInfo } from '../useGistFilesInfo'
+import { GistWithContent } from '../../../types/gist-types'
 import { toLower } from '../gist-card-utils'
+import { GistFileInfo } from '../useGistFilesInfo'
+import GistDetails from './gist-details'
 import GistIconOptions from './gist-icon-options'
 
 type GistCardProps = {

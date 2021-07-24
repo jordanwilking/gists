@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { MenuProps } from '@material-ui/core/Menu'
+import { useState } from 'react'
 
 /**
  * Hook for managing Material UI Menu state

@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react'
-import Tooltip, { TooltipProps } from '@material-ui/core/Tooltip'
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
+import Tooltip, { TooltipProps } from '@material-ui/core/Tooltip'
+import React, { ReactElement } from 'react'
 
 type TooltipButtonProps = {
   children: ReactElement
@@ -22,13 +22,13 @@ const TooltipButton = ({
   disabled,
   ...props
 }: TooltipButtonProps) => {
+  // span prevents a warning about wrapping disabled button
   return (
     <Tooltip
       title={tipText}
       PopperProps={{ disablePortal: true }}
       {...props.TooltipProps}
     >
-      {/* span prevents a warning about wrapping disabled button */}
       <span>
         <IconButton
           onClick={onClick}

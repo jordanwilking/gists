@@ -1,5 +1,5 @@
-import React from 'react'
 import { createTheme, ThemeProvider } from '@material-ui/core'
+import React from 'react'
 import GistSearch from '../gist-search/gist-search'
 import { SnackProvider } from '../snack/snack.provider'
 import { StarredStorageProvider } from '../starred-storage/starred-storage.provider'

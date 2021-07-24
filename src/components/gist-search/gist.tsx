@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import { Gist, GistWithContent } from '../../types/gist-types'
-import { useEffect } from 'react'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { Gist, GistWithContent } from '../../types/gist-types'
 import GistCardDisplay from './gist-card-display'
 import GistCardDisplaySkeleton from './gist-card-display-skeleton'
 

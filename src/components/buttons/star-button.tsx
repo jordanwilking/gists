@@ -1,9 +1,9 @@
-import React from 'react'
-import StarOutlineIcon from '@material-ui/icons/StarOutline'
 import StarIcon from '@material-ui/icons/Star'
+import StarOutlineIcon from '@material-ui/icons/StarOutline'
+import React from 'react'
 import TooltipButton from '../buttons/tooltip-button'
-import useSnack from '../snack/use-snack'
 import { SUCCESSFUL_ACTION } from '../snack/snack-props-presets'
+import useSnack from '../snack/use-snack'
 
 type StarButtonProps = {
   isStarred: boolean

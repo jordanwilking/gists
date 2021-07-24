@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import IconButton from '@material-ui/core/IconButton'
 import InputBase, { InputBaseProps } from '@material-ui/core/InputBase'
 import Paper, { PaperProps } from '@material-ui/core/Paper'
 import Tooltip from '@material-ui/core/Tooltip'
 import SearchIcon from '@material-ui/icons/Search'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import React, { useState } from 'react'
 
 type SearchBarProps = {
   onSubmit: (searchText: string) => void

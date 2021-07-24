@@ -1,13 +1,13 @@
-import React from 'react'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import React from 'react'
+import { GistWithContent } from '../../../types/gist-types'
 import StarButton from '../../buttons/star-button'
 import TooltipButton from '../../buttons/tooltip-button'
 import { SUCCESSFUL_ACTION } from '../../snack/snack-props-presets'
 import useSnack from '../../snack/use-snack'
 import { useStarredStorage } from '../../starred-storage/starred-storage.provider'
 import GistFilePager from '../gist-file-pager'
-import { GistWithContent } from '../../../types/gist-types'
 import { GistFileInfo } from '../useGistFilesInfo'
 
 type GistOptionsProps = {

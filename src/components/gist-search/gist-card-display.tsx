@@ -1,7 +1,7 @@
 import React from 'react'
 import { GistWithContent } from '../../types/gist-types'
-import GistSmallCard from '../gist-card/small-card/gist-small-card'
 import GistCard from '../gist-card/card/gist-card'
+import GistSmallCard from '../gist-card/small-card/gist-small-card'
 import useGistFilesInfo from '../gist-card/useGistFilesInfo'
 
 type GistCardDisplayProps = {

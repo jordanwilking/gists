@@ -37,8 +37,4 @@
     border-color: #f50057;
     border-width: 2px;
   }
-  html {
-    --scrollbarBG: #cfd8dc;
-    --thumbBG: #90a4ae;
-  }
 }

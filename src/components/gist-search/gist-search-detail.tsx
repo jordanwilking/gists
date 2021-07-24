@@ -1,9 +1,9 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import { Gist as GistType } from '../../types/gist-types'
-import Avatar from '@material-ui/core/Avatar'
 import { IconButton } from '@material-ui/core'
+import Avatar from '@material-ui/core/Avatar'
+import Grid from '@material-ui/core/Grid'
 import Link from '@material-ui/core/Link'
+import React from 'react'
+import { Gist as GistType } from '../../types/gist-types'
 
 type GistSearchDetailsProps = {
   gists: GistType[]

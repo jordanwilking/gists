@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import SearchBar from '../search-bar/search-bar'
-import { Gist as GistType } from '../../types/gist-types'
-import Gist from './gist'
 import axios from 'axios'
+import React, { useState } from 'react'
+import { Gist as GistType } from '../../types/gist-types'
+import SearchBar from '../search-bar/search-bar'
+import Gist from './gist'
 import GistSearchUserDetails from './gist-search-detail'
 
 /**

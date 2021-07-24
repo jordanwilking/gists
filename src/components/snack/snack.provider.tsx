@@ -1,10 +1,10 @@
-import React, { createContext, useState, useEffect, useMemo } from 'react'
 import Button from '@material-ui/core/Button'
-import SnackBar, { SnackbarProps } from '@material-ui/core/Snackbar'
-import Alert, { AlertProps } from '@material-ui/lab/Alert'
 import IconButton from '@material-ui/core/IconButton'
-import CloseIcon from '@material-ui/icons/Close'
 import Portal from '@material-ui/core/Portal'
+import SnackBar, { SnackbarProps } from '@material-ui/core/Snackbar'
+import CloseIcon from '@material-ui/icons/Close'
+import Alert, { AlertProps } from '@material-ui/lab/Alert'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
 
 type AddSnack = (message: string, props?: SnackProps) => void
 

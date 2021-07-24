@@ -1,8 +1,8 @@
-import React from 'react'
 import Typography from '@material-ui/core/Typography'
+import React from 'react'
 import { GistFileWithContent, GistWithContent } from '../../../types/gist-types'
-import { pluralize } from '../../../utilities/string-utils'
 import { isValidDate, toLocale } from '../../../utilities/date-utils'
+import { pluralize } from '../../../utilities/string-utils'
 
 type GistOverviewProps = {
   gist: GistWithContent

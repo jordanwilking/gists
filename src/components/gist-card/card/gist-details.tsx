@@ -1,9 +1,9 @@
-import React from 'react'
 import Link from '@material-ui/core/Link'
-import { GistWithContent, GistFileWithContent } from '../../../types/gist-types'
+import React from 'react'
+import { GistFileWithContent, GistWithContent } from '../../../types/gist-types'
+import { isValidDate, toLocale } from '../../../utilities/date-utils'
 import { pluralize } from '../../../utilities/string-utils'
 import TruncatedLine from '../../truncated-line/truncated-line'
-import { isValidDate, toLocale } from '../../../utilities/date-utils'
 
 type GistDetailsProps = {
   gist: GistWithContent

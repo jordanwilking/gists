@@ -1,9 +1,8 @@
-import React from 'react'
+import { SvgIconProps } from '@material-ui/core'
 import Tooltip, { TooltipProps } from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import DescriptionIcon from '@material-ui/icons/Description'
-import { SvgIconProps } from '@material-ui/core'
-import { truncate } from '../../utilities/string-utils'
+import React from 'react'
 
 type HoverInfoProps = {
   info: React.ReactNode

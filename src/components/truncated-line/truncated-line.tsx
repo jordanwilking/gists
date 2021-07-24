@@ -1,8 +1,6 @@
-import React from 'react'
-import Tooltip, { TooltipProps } from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
-import DescriptionIcon from '@material-ui/icons/Description'
 import { SvgIconProps } from '@material-ui/core'
+import { TooltipProps } from '@material-ui/core/Tooltip'
+import React from 'react'
 import { truncate } from '../../utilities/string-utils'
 import HoverInfo from '../hover-info/hover-info'
 

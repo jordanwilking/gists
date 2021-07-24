@@ -1,9 +1,8 @@
-import React from 'react'
-import TooltipButton from '../buttons/tooltip-button'
+import IconButton from '@material-ui/core/IconButton'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import React from 'react'
 import { GistFileInfo } from './useGistFilesInfo'
-import IconButton from '@material-ui/core/IconButton'
 
 type GistFilePagerProps = {
   fileInfo: GistFileInfo

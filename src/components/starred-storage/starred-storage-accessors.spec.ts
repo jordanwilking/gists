@@ -14,7 +14,6 @@ import {
 const globalAny: any = global
 globalAny.localStorage = new LocalStorageMock()
 
-// TODO: checks on the gists going in?
 describe('getGistsFromStorage', () => {
   beforeEach(() => {
     localStorage.clear()

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { SUCCESSFUL_ACTION } from '../../snack/snack-props-presets'
 import useSnack from '../../snack/use-snack'
 import { GistMenuOptionsProps } from './gist-menu-options'

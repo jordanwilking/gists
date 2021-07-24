@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { GistFileWithContent, GistWithContent } from '../../types/gist-types'
 
 export type GistFileInfo = {

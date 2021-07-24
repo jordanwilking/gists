@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Entry from './components/entry/entry'
-import './styles/tailwind.generated.css'
 import './index.css'
+import './styles/tailwind.generated.css'
 
 const App = () => {
   return (
