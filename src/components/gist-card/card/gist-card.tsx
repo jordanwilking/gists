@@ -1,7 +1,7 @@
 import Paper from '@material-ui/core/Paper'
 import React from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import nnfxDark from 'react-syntax-highlighter/dist/cjs/styles/hljs/nnfx-dark'
 import { GistWithContent } from '../../../types/gist-types'
 import { toLower } from '../gist-card-utils'
 import { GistFileInfo } from '../useGistFilesInfo'
@@ -33,7 +33,7 @@ const GistCard = ({ gist, fileInfo }: GistCardProps) => {
           language={toLower(file?.language)}
           showLineNumbers
           wrapLongLines
-          style={dracula}
+          style={nnfxDark}
           customStyle={{ margin: 0 }}
         >
           {file.content}

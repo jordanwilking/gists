@@ -5,7 +5,7 @@ import UnfoldLessIcon from '@material-ui/icons/UnfoldLess'
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore'
 import React, { useState } from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import nnfxDark from 'react-syntax-highlighter/dist/cjs/styles/hljs/nnfx-dark'
 import { GistWithContent } from '../../../types/gist-types'
 import { truncate } from '../../../utilities/string-utils'
 import StarButton from '../../buttons/star-button'
@@ -71,7 +71,8 @@ const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
           <SyntaxHighlighter
             language={toLower(file?.language)}
             showLineNumbers
-            style={dracula}
+            wrapLongLines
+            style={nnfxDark}
             customStyle={{ margin: 0 }}
           >
             {file.content}
