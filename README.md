@@ -49,6 +49,7 @@ Some ideas for the project if it was intended for production
 - Caching
   - Check if previous user's gists are in the cache before calling
   - Store more user's gists at a time?
+  - Add the GistWithContent to the prevSearch to grab previous search faster
 - Theming
 - Improve mobile experience
 - Favorites route to display all starred gists
@@ -79,6 +80,15 @@ Some ideas for the project if it was intended for production
 - Skeleton improvements
   - more detail
   - shared styles with shadowed components?
+- More information
+  - show that file has been truncate
+  - grab longer files
+- Usability
+  - Add aria tags
+  - Reduce width of cards for easier scrolling
+- Error log
+- Improve search state
+  - loading feels uncomfortable
 
 <!-- CONTACT -->
 

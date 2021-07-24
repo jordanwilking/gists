@@ -13,6 +13,7 @@ type GistCardProps = {
   fileInfo: GistFileInfo
 }
 
+/** Gist card display for larger windows */
 const GistCard = ({ gist, fileInfo }: GistCardProps) => {
   const { activeFile: file, fileCount } = fileInfo
 

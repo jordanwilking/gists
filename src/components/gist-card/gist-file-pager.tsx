@@ -10,6 +10,7 @@ type GistFilePagerProps = {
 }
 
 // TODO: tooltip performance issues
+/** Pages through gist files */
 const GistFilePager = ({ fileInfo }: GistFilePagerProps) => {
   return (
     <>

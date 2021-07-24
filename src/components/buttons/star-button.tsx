@@ -11,6 +11,10 @@ type StarButtonProps = {
   unstar: () => void
 }
 
+/**
+ * Star-shapped button
+ * Filled when starred and empty when unstarred
+ */
 const StarButton = ({ isStarred, star, unstar }: StarButtonProps) => {
   const addSnack = useSnack()
 

@@ -22,6 +22,9 @@ type Props = {
   children: React.ReactNode
 }
 
+/**
+ * Provides a context for managing starred gists in localStorage
+ */
 export const StarredStorageProvider = ({ children }: Props) => {
   const [starredGists, setStarredGists] = useState<GistWithContent[]>(
     getGistsFromStorage()

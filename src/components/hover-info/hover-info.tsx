@@ -19,6 +19,7 @@ const TooltipTitle = ({ info }: HoverInfoProps) => {
   )
 }
 
+/** Hoverable description icon for displaying information that won't fit  */
 const HoverInfo = ({ info, ...props }: HoverInfoProps) => {
   return (
     <Tooltip title={<TooltipTitle info={info} />} {...props.TooltipProps}>

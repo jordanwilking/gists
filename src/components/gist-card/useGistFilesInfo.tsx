@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { GistFileWithContent, GistWithContent } from '../../types/gist-types'
 
 export type GistFileInfo = {
-  activeFile: GistFileWithContent
+  activeFile: GistFileWithContent // the current file to display
   hasNextFile: boolean
   nextFile: () => void
   hasPrevFile: boolean
@@ -11,11 +11,13 @@ export type GistFileInfo = {
   fileCount: number
 }
 
+/** Hook for determining which file to display for a gist */
 const useGistFilesInfo = (gist: GistWithContent): GistFileInfo => {
   const [fileKeys, setFileKeys] = useState(Object.keys(gist.files))
   const [keyIndex, setKeyIndex] = useState<number>(0)
 
   useEffect(() => {
+    // gist has changed - reset the state
     const keys = Object.keys(gist.files)
     const initKeyIndex = 0
     setKeyIndex(initKeyIndex)

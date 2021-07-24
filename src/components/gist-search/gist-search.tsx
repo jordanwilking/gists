@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import SearchBar from '../search-bar/search-bar'
-import { GistResponse, Gist as GistType } from '../../types/gist-types'
+import { Gist as GistType } from '../../types/gist-types'
 import Gist from './gist'
 import axios from 'axios'
-import GistSearchDetails from './gist-search-detail'
+import GistSearchUserDetails from './gist-search-detail'
 
 /**
  * Grabs previously search's gists from local storage
@@ -16,21 +16,41 @@ const getPrevSearch = (): GistType[] => {
   return prevSearch ? JSON.parse(prevSearch) : []
 }
 
+/**
+ * The parent component for searching gists
+ * Handles component displays and the initial search
+ */
 const GistSearch = () => {
   const [gists, setGists] = useState<GistType[]>(getPrevSearch())
   const [isLoading, setIsLoading] = useState(false)
+  const [notFoundMessage, setNotFoundMessage] = useState('')
 
-  const handleSubmit = async (searchInput: string) => {
-    // TODO: error handling
+  const handleSubmit = (searchInput: string) => {
     setIsLoading(true)
 
-    const res: GistResponse = await axios.get(
-      `https://api.github.com/users/${searchInput}/gists`
-    )
+    axios
+      .get(`https://api.github.com/users/${searchInput}/gists`)
+      .then((res) => {
+        const returnedGists: GistType[] = res.data
 
-    localStorage.setItem('prevSearch', JSON.stringify(res.data))
-    setGists(res.data)
-    setIsLoading(false)
+        if (returnedGists.length) {
+          // gists found - reset message and store localStorage
+          setNotFoundMessage('')
+          localStorage.setItem('prevSearch', JSON.stringify(returnedGists))
+        } else {
+          // gists not found, but no errors
+          setNotFoundMessage(`No gists found for ${searchInput}`)
+        }
+
+        setGists(returnedGists)
+        setTimeout(() => setIsLoading(false), 1000)
+      })
+      .catch(() => {
+        // request returned not modified, forbidden, or not found
+        setTimeout(() => setIsLoading(false), 1000)
+        setGists([])
+        setNotFoundMessage(`No user found for ${searchInput}`)
+      })
   }
 
   return (
@@ -49,7 +69,8 @@ const GistSearch = () => {
             placeholder='Search Github Gists'
             isLoading={isLoading}
           />
-          {!!gists.length && <GistSearchDetails gists={gists} />}
+          {notFoundMessage && <GistSearchMessage message={notFoundMessage} />}
+          {!!gists.length && <GistSearchUserDetails gists={gists} />}
         </Grid>
         <Grid container item className='overflow-y-auto p-2'>
           {gists.map((gist) => {
@@ -58,6 +79,16 @@ const GistSearch = () => {
         </Grid>
       </Grid>
     </Paper>
+  )
+}
+
+const GistSearchMessage = ({ message }: { message: string }) => {
+  return (
+    <Grid container item justifyContent='center'>
+      <div className='flex justify-center w-3/5 xl:w-2/5 pl-2 py-4'>
+        {message}
+      </div>
+    </Grid>
   )
 }
 

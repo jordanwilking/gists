@@ -9,7 +9,10 @@ type GistSearchDetailsProps = {
   gists: GistType[]
 }
 
-const GistSearchDetails = ({ gists }: GistSearchDetailsProps) => {
+/**
+ * Displays data about the creator of the gists being displayed
+ */
+const GistSearchUserDetails = ({ gists }: GistSearchDetailsProps) => {
   if (!gists.length) return <></>
   const owner = gists[0].owner
 
@@ -37,4 +40,4 @@ const GistSearchDetails = ({ gists }: GistSearchDetailsProps) => {
   )
 }
 
-export default GistSearchDetails
+export default GistSearchUserDetails

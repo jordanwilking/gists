@@ -13,15 +13,15 @@ type Snack = {
 } & SnackProps
 
 export type SnackProps = {
-  status?: AlertProps['severity']
-  closeable?: boolean
-  clickawayCloseable?: boolean
-  timeout?: number
-  undo?: () => void
-  retry?: () => void
+  status?: AlertProps['severity'] // determines the style of the snackbar
+  closeable?: boolean // whether the snackbar is manually closeably
+  clickawayCloseable?: boolean // whether the snackbar can be closed by clickaway
+  timeout?: number // custom timeout before snackbar disappears
+  undo?: () => void // method for undoing the snackbar action
+  retry?: () => void // method for retrying the snackbar action
   snackBarProps?: SnackbarProps
   alertProps?: AlertProps
-  permanent?: boolean
+  permanent?: boolean // disables the timeout, forces closeable
 }
 
 const AUTO_DISMISS = 5000
@@ -29,7 +29,10 @@ const AUTO_DISMISS = 5000
 // Gives the addSnack function the correct type signature
 export const SnackBarContext = createContext<AddSnack>({} as AddSnack)
 
-export function SnackProvider({ children }: any) {
+/**
+ * Globally manages snackbars and provides a method for adding them to the queue
+ */
+export function SnackProvider({ children }: { children: React.ReactNode }) {
   const [snacks, setSnacks] = useState([] as Snack[])
   const [currentSnack, setCurrentSnack] = useState({} as Snack)
 
@@ -120,7 +123,7 @@ export function SnackProvider({ children }: any) {
   }
 
   const value = useMemo(() => addSnack, [])
-  
+
   const {
     message,
     status,

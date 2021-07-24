@@ -8,11 +8,11 @@ type Option = {
   onClick: (value?: string) => void
 }
 
-const useGistOptions = ({
-  gist,
-  url,
-  content,
-}: GistMenuOptionsProps): Option[] => {
+/**
+ * Hook for gist options
+ * Keeps them up-to-date
+ */
+const useGistOptions = ({ url, content }: GistMenuOptionsProps): Option[] => {
   const [options, setOptions] = useState<Option[]>([])
   const addSnack = useSnack()
 
@@ -30,7 +30,7 @@ const useGistOptions = ({
         },
       },
     ])
-  }, [gist, url, content])
+  }, [url, content])
 
   return options
 }

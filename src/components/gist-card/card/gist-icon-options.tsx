@@ -17,6 +17,9 @@ type GistOptionsProps = {
   fileInfo: GistFileInfo
 }
 
+/**
+ * Action icons for GistCard
+ */
 const GistIconOptions = ({
   gist,
   url,

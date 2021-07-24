@@ -16,12 +16,18 @@ import GistOverview from './gist-overview'
 import GistFilePager from '../gist-file-pager'
 import StarButton from '../../buttons/star-button'
 import GistMenuOptions from './gist-menu-options'
+import { truncate } from '../../../utilities/string-utils'
 
 type GistDisplayProps = {
   gist: GistWithContent
   fileInfo: GistFileInfo
 }
 
+const MAX_TITLE_LENGTH = 20
+
+/**
+ * Gist display card for small width windows
+ */
 const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
   const [expanded, setExpanded] = useState(false)
   const { addGist, removeGist, isStarred } = useStarredStorage()
@@ -37,10 +43,12 @@ const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
         <div className='flex h-full w-full justify-between items-center pl-2'>
           <div className='flex flex-row items-center'>
             <Link color='secondary' href={gist.html_url} className='mr-2'>
-              {file.filename}
+              {truncate(file.filename, MAX_TITLE_LENGTH)}
             </Link>
             <HoverInfo
-              info={<GistOverview gist={gist} fileCount={fileCount} />}
+              info={
+                <GistOverview gist={gist} file={file} fileCount={fileCount} />
+              }
             />
           </div>
           <div>
@@ -56,11 +64,7 @@ const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
               star={handleStar}
               unstar={handleUnstar}
             />
-            <GistMenuOptions
-              gist={gist}
-              url={gist.html_url}
-              content={file.content}
-            />
+            <GistMenuOptions url={gist.html_url} content={file.content} />
           </div>
         </div>
         <Collapse in={expanded} className='overflow-y-auto mx-2 mb-2 pt-0'>

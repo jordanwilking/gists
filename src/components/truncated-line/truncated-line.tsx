@@ -17,6 +17,11 @@ type TruncatedLine = {
   IconProps?: SvgIconProps
 }
 
+/**
+ * Display component for text intended for use in GistCard
+ * If text is too long, it is displayed with an icon
+ * to display the full text on hover
+ */
 const TruncatedLine = ({
   text,
   maxLength,

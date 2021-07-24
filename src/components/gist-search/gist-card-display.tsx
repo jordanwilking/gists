@@ -8,6 +8,10 @@ type GistCardDisplayProps = {
   gist: GistWithContent
 }
 
+/**
+ * Displays a gist card
+ * The decision for which card to display is made by media queries
+ */
 const GistCardDisplay = ({ gist }: GistCardDisplayProps) => {
   const fileInfo = useGistFilesInfo(gist)
 

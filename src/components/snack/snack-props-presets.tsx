@@ -1,3 +1,4 @@
+/** Preset for addSnack */
 import { SnackProps } from './snack.provider'
 
 const ONE_SECOND = 1000

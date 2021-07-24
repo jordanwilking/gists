@@ -8,14 +8,16 @@ import useMenu from '../../../hooks/useMenu'
 import useGistOptions from './useGistOptions'
 
 export type GistMenuOptionsProps = {
-  gist: GistWithContent
   url: string
   content: string
 }
 
-const GistMenuOptions = ({ gist, url, content }: GistMenuOptionsProps) => {
+/**
+ * Vertical kabob menu for small gist card
+ */
+const GistMenuOptions = ({ url, content }: GistMenuOptionsProps) => {
   const { anchorEl, open, closeMenu, updateAnchor } = useMenu()
-  const options = useGistOptions({ gist, url, content })
+  const options = useGistOptions({ url, content })
 
   return (
     <>

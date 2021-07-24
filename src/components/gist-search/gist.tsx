@@ -9,9 +9,14 @@ type GistProps = {
   gistId: string
 }
 
+/**
+ * Queries for each individual gist and displays
+ * loading state and cards
+ */
 const Gist = ({ gistId }: GistProps) => {
   const [gist, setGist] = useState<GistWithContent>()
   const [isLoading, setIsLoading] = useState(true)
+  const [hasError, setHasError] = useState(false)
 
   useEffect(() => {
     axios
@@ -20,15 +25,18 @@ const Gist = ({ gistId }: GistProps) => {
         setGist(res.data)
         setIsLoading(false)
       })
-      .catch((error) => {
-        // TODO: this can post errors if no user
-        console.log(error)
+      .catch(() => {
+        setHasError(true)
+        setIsLoading(false)
       })
   }, [])
 
   if (isLoading) {
     return <GistCardDisplaySkeleton />
   }
+
+  // error - don't show this card
+  if (hasError) return <></>
 
   return <GistCardDisplay gist={gist} />
 }

@@ -4,13 +4,17 @@ import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
 
 type TooltipButtonProps = {
   children: ReactElement
-  tipText: string
+  tipText: string // text displayed on the tooltip
   onClick: React.MouseEventHandler<HTMLButtonElement>
   disabled?: boolean
   TooltipProps?: TooltipProps
   IconButtonProps?: IconButtonProps
 }
 
+/**
+ * IconButton with a tooltip
+ * Displays tooltip on hover
+ */
 const TooltipButton = ({
   children,
   tipText,
@@ -24,6 +28,7 @@ const TooltipButton = ({
       PopperProps={{ disablePortal: true }}
       {...props.TooltipProps}
     >
+      {/* span prevents a warning about wrapping disabled button */}
       <span>
         <IconButton
           onClick={onClick}
