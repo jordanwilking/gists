@@ -1,6 +1,4 @@
-import { useTheme } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Gist as GistType } from '../../types/gist-types'
@@ -29,7 +27,6 @@ const validateGists = (gists: GistType[]) => {
  * Handles component displays and the initial search
  */
 const GistSearch = () => {
-  const { palette } = useTheme()
   const [gists, setGists] = useState<GistType[]>(getPrevSearch())
   const [isLoading, setIsLoading] = useState(false)
   const [notFoundMessage, setNotFoundMessage] = useState('')
@@ -64,35 +61,29 @@ const GistSearch = () => {
   }
 
   return (
-    <Paper
-      square
-      className='h-full'
-      style={{ background: palette.background.default }}
-    >
-      <Grid container direction='column' className='h-full' wrap='nowrap'>
-        <Grid
-          container
-          item
-          direction='column'
-          alignItems='center'
-          justifyContent='center'
-          className='h-40 min-h-40'
-        >
-          <SearchBar
-            onSubmit={handleSubmit}
-            placeholder='Search Github Gists'
-            isLoading={isLoading}
-          />
-          {notFoundMessage && <GistSearchMessage message={notFoundMessage} />}
-          {!!gists.length && <GistSearchUserDetails gists={gists} />}
-        </Grid>
-        <Grid container item className='overflow-y-auto p-2'>
-          {gists.map((gist) => (
-            <Gist key={gist.id} gist={gist} />
-          ))}
-        </Grid>
+    <Grid container direction='column' className='h-full' wrap='nowrap'>
+      <Grid
+        container
+        item
+        direction='column'
+        alignItems='center'
+        justifyContent='center'
+        className='h-40 min-h-40'
+      >
+        <SearchBar
+          onSubmit={handleSubmit}
+          placeholder='Search Github Gists'
+          isLoading={isLoading}
+        />
+        {notFoundMessage && <GistSearchMessage message={notFoundMessage} />}
+        {!!gists.length && <GistSearchUserDetails gists={gists} />}
       </Grid>
-    </Paper>
+      <Grid container item className='overflow-y-auto p-2'>
+        {gists.map((gist) => (
+          <Gist key={gist.id} gist={gist} />
+        ))}
+      </Grid>
+    </Grid>
   )
 }
 
