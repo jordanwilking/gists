@@ -79,7 +79,9 @@ Some ideas for the project if it was intended for production
 - Alternate syntax highlighter
   - Prismjs is pretty painful for this usecase
   - react-syntax-highlighter has poor performance
-- More robust testing
+- Testing
+  - More robust
+  - Don't package it
 - More robust error-handling
   - Validate gists before and after storing them
 - Skeleton improvements
