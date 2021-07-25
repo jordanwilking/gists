@@ -3,24 +3,10 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { Gist as GistType } from '../../types/gist-types'
 import SearchBar from '../search-bar/search-bar'
+import { validateGists } from '../validation/validate-gists'
 import Gist from './gist'
 import GistSearchUserDetails from './gist-search-detail'
 import { getPrevSearch } from './previous-search-storage'
-
-const validateGists = (gists: GistType[]) => {
-  return gists.filter((gist) => {
-    // Check some standard values in the structure
-    if (gist?.id && gist?.owner?.id && gist.files) {
-      // Verify that the gist has at least 1 file
-      for (let prop in gist.files) {
-        if (gist.files.hasOwnProperty(prop)) return true
-      }
-    }
-
-    // Gist is in valid - don't keep it
-    return false
-  })
-}
 
 /**
  * The parent component for searching gists
@@ -48,7 +34,6 @@ const GistSearch = () => {
           setNotFoundMessage(`No gists found for ${searchInput}`)
         }
 
-        // TODO: validate gists and only keep the ones that pass
         setGists(validateGists(returnedGists))
         setTimeout(() => setIsLoading(false), 1000)
       })

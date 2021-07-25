@@ -3,6 +3,7 @@ import LocalStorageMock from '../../testing/local-storage-mock'
 import {
   getSampleGists,
   getSampleGistsWithFileContent,
+  getSampleGistsWithFileContentOneInvalid,
 } from '../../testing/sample-data'
 import { GistWithContent } from '../../types/gist-types'
 import {
@@ -48,5 +49,42 @@ describe('setGistsInStorage', () => {
 
     expect(gists.length).to.equal(gistsToStore.length)
     expect(gists[0].id).to.equals(firstGistId)
+  })
+  it('it stores only valid gists in localStorage', () => {
+    const gistsToStore = getSampleGistsWithFileContentOneInvalid()
+      .data as GistWithContent[]
+    setGistsInStorage(gistsToStore)
+    const gists = JSON.parse(
+      localStorage.getItem(STORED_GISTS)
+    ) as GistWithContent[]
+
+    expect(gists.length).to.equal(gistsToStore.length - 1)
+  })
+  it('it handles empty array', () => {
+    const gistsToStore = [] as GistWithContent[]
+    setGistsInStorage(gistsToStore)
+    const gists = JSON.parse(
+      localStorage.getItem(STORED_GISTS)
+    ) as GistWithContent[]
+
+    expect(gists.length).to.equal(0)
+  })
+  it('it handles invalid array content', () => {
+    const gistsToStore = ['invalid'] as any
+    setGistsInStorage(gistsToStore)
+    const gists = JSON.parse(
+      localStorage.getItem(STORED_GISTS)
+    ) as GistWithContent[]
+
+    expect(gists.length).to.equal(0)
+  })
+  it('it handles invalid non-array content', () => {
+    const gistsToStore = 'invalid' as any
+    setGistsInStorage(gistsToStore)
+    const gists = JSON.parse(
+      localStorage.getItem(STORED_GISTS)
+    ) as GistWithContent[]
+
+    expect(gists.length).to.equal(0)
   })
 })

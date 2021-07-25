@@ -1460,3 +1460,283 @@ export const getSampleGistsWithFileContent = () => {
     request: {},
   }
 }
+
+export const getSampleGistsWithFileContentOneInvalid = () => {
+  return {
+    data: [
+      {
+        url: 'https://api.github.com/gists/547a9749e71411ca30a8c73937c8dd79',
+        forks_url:
+          'https://api.github.com/gists/547a9749e71411ca30a8c73937c8dd79/forks',
+        commits_url:
+          'https://api.github.com/gists/547a9749e71411ca30a8c73937c8dd79/commits',
+        id: '547a9749e71411ca30a8c73937c8dd79',
+        node_id: 'MDQ6R2lzdDU0N2E5NzQ5ZTcxNDExY2EzMGE4YzczOTM3YzhkZDc5',
+        git_pull_url:
+          'https://gist.github.com/547a9749e71411ca30a8c73937c8dd79.git',
+        git_push_url:
+          'https://gist.github.com/547a9749e71411ca30a8c73937c8dd79.git',
+        html_url: 'https://gist.github.com/547a9749e71411ca30a8c73937c8dd79',
+        public: true,
+        created_at: '2020-09-28T22:18:50Z',
+        updated_at: '2020-09-28T22:18:51Z',
+        description: 'Making Ctrl+C termination cancel the context.Context',
+        comments: 0,
+        user: null,
+        comments_url:
+          'https://api.github.com/gists/547a9749e71411ca30a8c73937c8dd79/comments',
+        owner: {
+          login: 'vsouza',
+          id: 484656,
+          node_id: 'MDQ6VXNlcjQ4NDY1Ng==',
+          avatar_url: 'https://avatars.githubusercontent.com/u/484656?v=4',
+          gravatar_id: '',
+          url: 'https://api.github.com/users/vsouza',
+          html_url: 'https://github.com/vsouza',
+          followers_url: 'https://api.github.com/users/vsouza/followers',
+          following_url:
+            'https://api.github.com/users/vsouza/following{/other_user}',
+          gists_url: 'https://api.github.com/users/vsouza/gists{/gist_id}',
+          starred_url:
+            'https://api.github.com/users/vsouza/starred{/owner}{/repo}',
+          subscriptions_url:
+            'https://api.github.com/users/vsouza/subscriptions',
+          organizations_url: 'https://api.github.com/users/vsouza/orgs',
+          repos_url: 'https://api.github.com/users/vsouza/repos',
+          events_url: 'https://api.github.com/users/vsouza/events{/privacy}',
+          received_events_url:
+            'https://api.github.com/users/vsouza/received_events',
+          type: 'User',
+          site_admin: false,
+        },
+        truncated: false,
+      },
+      {
+        url: 'https://api.github.com/gists/f95d9d2a5ec70c3f0502ed838a7f5944',
+        forks_url:
+          'https://api.github.com/gists/f95d9d2a5ec70c3f0502ed838a7f5944/forks',
+        commits_url:
+          'https://api.github.com/gists/f95d9d2a5ec70c3f0502ed838a7f5944/commits',
+        id: 'f95d9d2a5ec70c3f0502ed838a7f5944',
+        node_id: 'MDQ6R2lzdGY5NWQ5ZDJhNWVjNzBjM2YwNTAyZWQ4MzhhN2Y1OTQ0',
+        git_pull_url:
+          'https://gist.github.com/f95d9d2a5ec70c3f0502ed838a7f5944.git',
+        git_push_url:
+          'https://gist.github.com/f95d9d2a5ec70c3f0502ed838a7f5944.git',
+        html_url: 'https://gist.github.com/f95d9d2a5ec70c3f0502ed838a7f5944',
+        files: {
+          'installing_cassandra.md': {
+            filename: 'installing_cassandra.md',
+            type: 'text/markdown',
+            language: 'Markdown',
+            raw_url:
+              'https://gist.githubusercontent.com/vsouza/f95d9d2a5ec70c3f0502ed838a7f5944/raw/c24e906f9d61f7b480ac857cccb91c17bde8fbb8/installing_cassandra.md',
+            size: 1843,
+            content:
+              'Installing Cassandra on Mac OS X\n================================\n\nInstall Homebrew\n----------------\nHomebrew is a great little package manager for OS X. If you haven\'t already, installing it is pretty easy:\n\n```Shell\nruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"\n```\n\nInstall Python\n--------------\nMac OS X has a copy of Python preinstalled, but this makes sure you get the newest version.\n\n```Shell\nbrew install python\n```\n\nInstall cql\n-----------\nTo use cqlsh, the Cassandra query language shell, you need to install cql:\n\n```Shell\npip install cql\n```\n\nInstall Cassandra\n-----------------\nThis installs Apache Cassandra:\n\n```Shell\nbrew install cassandra\n```\n\nStarting/Stopping Cassandra\n---------------------------\nUse this command to start Cassandra:\n\n```Shell\nlaunchctl load ~/Library/LaunchAgents/homebrew.mxcl.cassandra.plist\n```\n\nUse this command to stop Cassandra:\n\n```Shell\nlaunchctl unload ~/Library/LaunchAgents/homebrew.mxcl.cassandra.plist\n```\n\nOn Mavericks, Homebrew failed to move the plist file into LaunchAgents, which gives this error message:\n\n```Shell\nlaunchctl: Couldn\'t stat("/Users/<user>/Library/LaunchAgents/homebrew.mxcl.cassandra.plist"): No such file or directory\n```\n\nTo fix this just issue the following command. Then, try using the `launchctl load` command again:\n\n```Shell\ncp /usr/local/Cellar/cassandra/<version number>/homebrew.mxcl.cassandra.plist ~/Library/LaunchAgents/\n```\n\nCassandra file locations\n------------------------\n- Properties: `/usr/local/etc/cassandra`\n- Logs: `/usr/local/var/log/cassandra`\n- Data: `/usr/local/var/lib/cassandra/data`\n\nLinks\n-----\n- [Apache Cassandra] (http://cassandra.apache.org/)\n- [Datastax Cassandra Documentation] (http://www.datastax.com/documentation/cassandra/2.0/cassandra/gettingStartedCassandraIntro.html)\n\nHave fun with Cassandra!\n',
+          },
+        },
+        public: true,
+        created_at: '2020-07-30T20:53:13Z',
+        updated_at: '2020-07-30T20:53:14Z',
+        description: 'Installing Cassandra on Mac OS X',
+        comments: 0,
+        user: null,
+        comments_url:
+          'https://api.github.com/gists/f95d9d2a5ec70c3f0502ed838a7f5944/comments',
+        owner: {
+          login: 'vsouza',
+          id: 484656,
+          node_id: 'MDQ6VXNlcjQ4NDY1Ng==',
+          avatar_url: 'https://avatars.githubusercontent.com/u/484656?v=4',
+          gravatar_id: '',
+          url: 'https://api.github.com/users/vsouza',
+          html_url: 'https://github.com/vsouza',
+          followers_url: 'https://api.github.com/users/vsouza/followers',
+          following_url:
+            'https://api.github.com/users/vsouza/following{/other_user}',
+          gists_url: 'https://api.github.com/users/vsouza/gists{/gist_id}',
+          starred_url:
+            'https://api.github.com/users/vsouza/starred{/owner}{/repo}',
+          subscriptions_url:
+            'https://api.github.com/users/vsouza/subscriptions',
+          organizations_url: 'https://api.github.com/users/vsouza/orgs',
+          repos_url: 'https://api.github.com/users/vsouza/repos',
+          events_url: 'https://api.github.com/users/vsouza/events{/privacy}',
+          received_events_url:
+            'https://api.github.com/users/vsouza/received_events',
+          type: 'User',
+          site_admin: false,
+        },
+        truncated: false,
+      },
+      {
+        url: 'https://api.github.com/gists/d4d8edc96cacb70f73bb149c4e36c542',
+        forks_url:
+          'https://api.github.com/gists/d4d8edc96cacb70f73bb149c4e36c542/forks',
+        commits_url:
+          'https://api.github.com/gists/d4d8edc96cacb70f73bb149c4e36c542/commits',
+        id: 'd4d8edc96cacb70f73bb149c4e36c542',
+        node_id: 'MDQ6R2lzdGQ0ZDhlZGM5NmNhY2I3MGY3M2JiMTQ5YzRlMzZjNTQy',
+        git_pull_url:
+          'https://gist.github.com/d4d8edc96cacb70f73bb149c4e36c542.git',
+        git_push_url:
+          'https://gist.github.com/d4d8edc96cacb70f73bb149c4e36c542.git',
+        html_url: 'https://gist.github.com/d4d8edc96cacb70f73bb149c4e36c542',
+        files: {
+          'main.go': {
+            filename: 'main.go',
+            type: 'text/plain',
+            language: 'Go',
+            raw_url:
+              'https://gist.githubusercontent.com/vsouza/d4d8edc96cacb70f73bb149c4e36c542/raw/49568833a509ef3c0c4aa10c024a52eed041d0b7/main.go',
+            size: 375,
+            content:
+              'package main\n\nimport (\n\t"log"\n\t"myserver"\n\t"net/http"\n)\n\nconst addr = "localhost:12345"\n\nfunc main() {\n\tmux := http.NewServeMux()\n\thandler := &myserver.MyHandler{}\n\tmux.Handle("/favicon.ico", http.NotFoundHandler())\n\tmux.Handle("/", handler)\n\tlog.Printf("Now listening on %s...\\n", addr)\n\tserver := http.Server{Handler: mux, Addr: addr}\n\tlog.Fatal(server.ListenAndServe())\n}\n',
+          },
+          'myserver.go': {
+            filename: 'myserver.go',
+            type: 'text/plain',
+            language: 'Go',
+            raw_url:
+              'https://gist.githubusercontent.com/vsouza/d4d8edc96cacb70f73bb149c4e36c542/raw/040fff12aabb8a69153a5ec68cb8bf63aaa61eae/myserver.go',
+            size: 291,
+            content:
+              'package myserver\n\nimport (\n\t"fmt"\n\t"net/http"\n\t"sync"\n)\n\ntype MyHandler struct {\n\tsync.Mutex\n\tcount int\n}\n\nfunc (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {\n\tvar count int\n\th.Lock()\n\th.count++\n\tcount = h.count\n\th.Unlock()\n\n\tfmt.Fprintf(w, "Visitor count: %d.", count)\n}',
+          },
+          'myserver_test.go': {
+            filename: 'myserver_test.go',
+            type: 'text/plain',
+            language: 'Go',
+            raw_url:
+              'https://gist.githubusercontent.com/vsouza/d4d8edc96cacb70f73bb149c4e36c542/raw/47d8573a0c822f1d901ff605a6321ad65b356c23/myserver_test.go',
+            size: 648,
+            content:
+              'package myserver\n\nimport (\n\t"fmt"\n\t"io/ioutil"\n\t"net/http"\n\t"net/http/httptest"\n\t"testing"\n)\n\nfunc TestMyHandler(t *testing.T) {\n\thandler := &MyHandler{}\n\tserver := httptest.NewServer(handler)\n\tdefer server.Close()\n\n\tfor _, i := range []int{1, 2} {\n\t\tresp, err := http.Get(server.URL)\n\t\tif err != nil {\n\t\t\tt.Fatal(err)\n\t\t}\n\t\tif resp.StatusCode != 200 {\n\t\t\tt.Fatalf("Received non-200 response: %d\\n", resp.StatusCode)\n\t\t}\n\t\texpected := fmt.Sprintf("Visitor count: %d.", i)\n\t\tactual, err := ioutil.ReadAll(resp.Body)\n\t\tif err != nil {\n\t\t\tt.Fatal(err)\n\t\t}\n\t\tif expected != string(actual) {\n\t\t\tt.Errorf("Expected the message \'%s\'\\n", expected)\n\t\t}\n\t}\n}',
+          },
+        },
+        public: true,
+        created_at: '2018-05-27T22:58:17Z',
+        updated_at: '2018-05-27T22:58:17Z',
+        description:
+          'Example of testing Go HTTP servers using httptest.Server.',
+        comments: 0,
+        user: null,
+        comments_url:
+          'https://api.github.com/gists/d4d8edc96cacb70f73bb149c4e36c542/comments',
+        owner: {
+          login: 'vsouza',
+          id: 484656,
+          node_id: 'MDQ6VXNlcjQ4NDY1Ng==',
+          avatar_url: 'https://avatars.githubusercontent.com/u/484656?v=4',
+          gravatar_id: '',
+          url: 'https://api.github.com/users/vsouza',
+          html_url: 'https://github.com/vsouza',
+          followers_url: 'https://api.github.com/users/vsouza/followers',
+          following_url:
+            'https://api.github.com/users/vsouza/following{/other_user}',
+          gists_url: 'https://api.github.com/users/vsouza/gists{/gist_id}',
+          starred_url:
+            'https://api.github.com/users/vsouza/starred{/owner}{/repo}',
+          subscriptions_url:
+            'https://api.github.com/users/vsouza/subscriptions',
+          organizations_url: 'https://api.github.com/users/vsouza/orgs',
+          repos_url: 'https://api.github.com/users/vsouza/repos',
+          events_url: 'https://api.github.com/users/vsouza/events{/privacy}',
+          received_events_url:
+            'https://api.github.com/users/vsouza/received_events',
+          type: 'User',
+          site_admin: false,
+        },
+        truncated: false,
+      },
+      {
+        url: 'https://api.github.com/gists/2f113fa4b68b8e4a64e77dc50319ee38',
+        forks_url:
+          'https://api.github.com/gists/2f113fa4b68b8e4a64e77dc50319ee38/forks',
+        commits_url:
+          'https://api.github.com/gists/2f113fa4b68b8e4a64e77dc50319ee38/commits',
+        id: '2f113fa4b68b8e4a64e77dc50319ee38',
+        node_id: 'MDQ6R2lzdDJmMTEzZmE0YjY4YjhlNGE2NGU3N2RjNTAzMTllZTM4',
+        git_pull_url:
+          'https://gist.github.com/2f113fa4b68b8e4a64e77dc50319ee38.git',
+        git_push_url:
+          'https://gist.github.com/2f113fa4b68b8e4a64e77dc50319ee38.git',
+        html_url: 'https://gist.github.com/2f113fa4b68b8e4a64e77dc50319ee38',
+        files: {
+          'start_streamming_spark.py': {
+            filename: 'start_streamming_spark.py',
+            type: 'application/x-python',
+            language: 'Python',
+            raw_url:
+              'https://gist.githubusercontent.com/vsouza/2f113fa4b68b8e4a64e77dc50319ee38/raw/f68e3957c74716e8da03dd952f1f9e354397f3ff/start_streamming_spark.py',
+            size: 105,
+            content:
+              'spark_streaming_context.start()\nspark_streaming_context.awaitTermination()\nspark_streaming_context.stop()',
+          },
+        },
+        public: true,
+        created_at: '2016-10-05T02:52:20Z',
+        updated_at: '2016-10-05T02:52:20Z',
+        description: '',
+        comments: 0,
+        user: null,
+        comments_url:
+          'https://api.github.com/gists/2f113fa4b68b8e4a64e77dc50319ee38/comments',
+        owner: {
+          login: 'vsouza',
+          id: 484656,
+          node_id: 'MDQ6VXNlcjQ4NDY1Ng==',
+          avatar_url: 'https://avatars.githubusercontent.com/u/484656?v=4',
+          gravatar_id: '',
+          url: 'https://api.github.com/users/vsouza',
+          html_url: 'https://github.com/vsouza',
+          followers_url: 'https://api.github.com/users/vsouza/followers',
+          following_url:
+            'https://api.github.com/users/vsouza/following{/other_user}',
+          gists_url: 'https://api.github.com/users/vsouza/gists{/gist_id}',
+          starred_url:
+            'https://api.github.com/users/vsouza/starred{/owner}{/repo}',
+          subscriptions_url:
+            'https://api.github.com/users/vsouza/subscriptions',
+          organizations_url: 'https://api.github.com/users/vsouza/orgs',
+          repos_url: 'https://api.github.com/users/vsouza/repos',
+          events_url: 'https://api.github.com/users/vsouza/events{/privacy}',
+          received_events_url:
+            'https://api.github.com/users/vsouza/received_events',
+          type: 'User',
+          site_admin: false,
+        },
+        truncated: false,
+      },
+    ],
+    status: 200,
+    statusText: '',
+    headers: {
+      'cache-control': 'public, max-age=60, s-maxage=60',
+      'content-type': 'application/json; charset=utf-8',
+      etag: 'W/"0c86524f38a880c9f8ad75d4f17754d37f466f9ed01af883e77fb9deeb0b2a69"',
+      'x-github-media-type': 'github.v3',
+      'x-ratelimit-limit': '60',
+      'x-ratelimit-remaining': '55',
+      'x-ratelimit-reset': '1626817203',
+      'x-ratelimit-resource': 'core',
+      'x-ratelimit-used': '5',
+    },
+    config: {
+      url: 'https://api.github.com/users/vsouza/gists',
+      method: 'get',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+      },
+      transformRequest: [null],
+      transformResponse: [null],
+      timeout: 0,
+      xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
+      maxContentLength: -1,
+      maxBodyLength: -1,
+    },
+    request: {},
+  }
+}

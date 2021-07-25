@@ -1,4 +1,5 @@
 import { GistWithContent } from '../../types/gist-types'
+import { validateGists } from '../validation/validate-gists'
 
 export const STORED_GISTS = 'storedGists'
 
@@ -16,5 +17,10 @@ export const getGistsFromStorage = (): GistWithContent[] => {
 /**
  * Sets starred gists in localStorage
  */
-export const setGistsInStorage = (gists: GistWithContent[]) =>
-  localStorage.setItem(STORED_GISTS, JSON.stringify(gists))
+export const setGistsInStorage = (gists: GistWithContent[]) => {
+  if (!Array.isArray(gists))
+    return localStorage.setItem(STORED_GISTS, JSON.stringify([]))
+
+  const validGists = validateGists(gists)
+  localStorage.setItem(STORED_GISTS, JSON.stringify(validGists))
+}
