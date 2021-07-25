@@ -95,6 +95,10 @@ Some ideas for the project if it was intended for production
 - Improve search state
   - loading feels uncomfortable
 - optimistic responses for favoriting
+- Favorites route
+  - No limits on how many items could be there (paging and/or virtualization)
+  - Inefficient way of removing starred items (localStorage live updates)
+  - Don't pass showUser through so many props (context?)
 
 <!-- TRADEOFFS -->
 

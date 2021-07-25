@@ -16,10 +16,12 @@ import GistFilePager from '../gist-file-pager'
 import { GistFileInfo } from '../useGistFilesInfo'
 import GistMenuOptions from './gist-menu-options'
 import GistOverview from './gist-overview'
+import UserPrefix from '../user-prefix'
 
 type GistDisplayProps = {
   gist: GistWithContent
   fileInfo: GistFileInfo
+  showUser?: boolean
 }
 
 const MAX_TITLE_LENGTH = 20
@@ -27,7 +29,7 @@ const MAX_TITLE_LENGTH = 20
 /**
  * Gist display card for small width windows
  */
-const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
+const GistSmallCard = ({ gist, fileInfo, showUser }: GistDisplayProps) => {
   const [expanded, setExpanded] = useState(false)
   const { addGist, removeGist, isStarred } = useStarredStorage()
   const isStarredGist = isStarred(gist)
@@ -41,6 +43,12 @@ const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
       <div className='flex h-full w-full flex-col'>
         <div className='flex h-full w-full justify-between items-center pl-2'>
           <div className='flex flex-row items-center'>
+            {showUser && (
+              <UserPrefix
+                userName={gist.owner.login}
+                url={gist.owner.html_url}
+              />
+            )}
             <Link color='secondary' href={gist.html_url} className='mr-2'>
               {truncate(file.filename, MAX_TITLE_LENGTH)}
             </Link>

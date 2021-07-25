@@ -10,7 +10,7 @@ const StarredGists = () => {
     <Grid container direction='column' className='h-full pt-10' wrap='nowrap'>
       <Grid container item className='overflow-y-auto p-2'>
         {starredGists.map((gist) => (
-          <Gist key={gist.id} gist={gist} />
+          <Gist key={gist.id} gist={gist} showUser />
         ))}
       </Grid>
     </Grid>

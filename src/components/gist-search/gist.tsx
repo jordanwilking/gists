@@ -8,13 +8,14 @@ import { addFileToPrevSearch } from './previous-search-storage'
 
 type GistProps = {
   gist: Gist | GistWithContent
+  showUser?: boolean
 }
 
 /**
  * Queries for each individual gist and displays
  * loading state and cards
  */
-const Gist = ({ gist }: GistProps) => {
+const Gist = ({ gist, showUser }: GistProps) => {
   const [gistWithContent, setGistWithContent] = useState<GistWithContent>()
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
@@ -45,7 +46,7 @@ const Gist = ({ gist }: GistProps) => {
   // error - don't show this card
   if (hasError) return <></>
 
-  return <GistCardDisplay gist={gistWithContent} />
+  return <GistCardDisplay gist={gistWithContent} showUser={showUser} />
 }
 
 export default Gist

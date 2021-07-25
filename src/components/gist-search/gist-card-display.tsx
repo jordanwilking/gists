@@ -7,19 +7,20 @@ import useGistFilesInfo from '../gist-card/useGistFilesInfo'
 
 type GistCardDisplayProps = {
   gist: GistWithContent
+  showUser?: boolean
 }
 
 /**
  * Displays a gist card
  * The decision for which card to display is made by media queries
  */
-const GistCardDisplay = ({ gist }: GistCardDisplayProps) => {
+const GistCardDisplay = ({ gist, showUser }: GistCardDisplayProps) => {
   const fileInfo = useGistFilesInfo(gist)
 
   return (
     <div className='flex w-full items-center md:max-h-80 xl:w-1/2 p-2'>
-      <GistSmallCard gist={gist} fileInfo={fileInfo} />
-      <GistCard gist={gist} fileInfo={fileInfo} />
+      <GistSmallCard gist={gist} fileInfo={fileInfo} showUser={showUser} />
+      <GistCard gist={gist} fileInfo={fileInfo} showUser={showUser} />
     </div>
   )
 }

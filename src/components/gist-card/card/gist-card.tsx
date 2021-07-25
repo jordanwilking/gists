@@ -10,16 +10,22 @@ import GistIconOptions from './gist-icon-options'
 type GistCardProps = {
   gist: GistWithContent
   fileInfo: GistFileInfo
+  showUser: boolean
 }
 
 /** Gist card display for larger windows */
-const GistCard = ({ gist, fileInfo }: GistCardProps) => {
+const GistCard = ({ gist, fileInfo, showUser }: GistCardProps) => {
   const { activeFile: file, fileCount } = fileInfo
 
   return (
     <Paper className='hidden md:flex flex-col w-full h-full' elevation={8}>
       <div className='flex flex-row justify-between w-full m-2'>
-        <GistDetails gist={gist} file={file} fileCount={fileCount} />
+        <GistDetails
+          gist={gist}
+          file={file}
+          fileCount={fileCount}
+          showUser={showUser}
+        />
         <GistIconOptions
           gist={gist}
           url={gist.html_url}
