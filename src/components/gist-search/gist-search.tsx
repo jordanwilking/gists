@@ -36,6 +36,7 @@ const GistSearch = () => {
           setNotFoundMessage(`No gists found for ${searchInput}`)
         }
 
+        // TODO: validate gists and only keep the ones that pass
         setGists(returnedGists)
         setTimeout(() => setIsLoading(false), 1000)
       })
