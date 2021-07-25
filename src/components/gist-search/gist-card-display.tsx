@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@material-ui/core'
 import React from 'react'
 import { GistWithContent } from '../../types/gist-types'
 import GistCard from '../gist-card/card/gist-card'

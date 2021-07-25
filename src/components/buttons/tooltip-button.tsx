@@ -24,11 +24,7 @@ const TooltipButton = ({
 }: TooltipButtonProps) => {
   // span prevents a warning about wrapping disabled button
   return (
-    <Tooltip
-      title={tipText}
-      PopperProps={{ disablePortal: true }}
-      {...props.TooltipProps}
-    >
+    <Tooltip title={tipText} {...props.TooltipProps}>
       <span>
         <IconButton
           onClick={onClick}

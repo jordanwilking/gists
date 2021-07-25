@@ -1,9 +1,9 @@
+import IconButton from '@material-ui/core/IconButton'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import React from 'react'
 import { GistWithContent } from '../../../types/gist-types'
 import StarButton from '../../buttons/star-button'
-import TooltipButton from '../../buttons/tooltip-button'
 import { SUCCESSFUL_ACTION } from '../../snack/snack-props-presets'
 import useSnack from '../../snack/use-snack'
 import { useStarredStorage } from '../../starred-storage/starred-storage.provider'
@@ -36,18 +36,17 @@ const GistIconOptions = ({
   return (
     <div className='mx-2'>
       <GistFilePager fileInfo={fileInfo} />
-      <TooltipButton
-        tipText='Copy'
+      <IconButton
         onClick={() => {
           navigator.clipboard.writeText(content)
           addSnack('Copied!', SUCCESSFUL_ACTION)
         }}
       >
         <FileCopyIcon />
-      </TooltipButton>
-      <TooltipButton tipText='Open' onClick={() => window.open(url)}>
+      </IconButton>
+      <IconButton onClick={() => window.open(url)}>
         <OpenInNewIcon />
-      </TooltipButton>
+      </IconButton>
       <StarButton
         isStarred={isStarredGist}
         star={handleStar}

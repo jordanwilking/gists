@@ -1,7 +1,7 @@
 {
   "name": "gists",
   "version": "1.0.0",
-  "description": "",
+  "description": "Search tool for fetching and favoriting users' Github gists",
   "main": "index.tsx",
   "scripts": {
     "start": "webpack-dev-server --open",
@@ -27,7 +27,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "react-syntax-highlighter": "^15.4.3",
+    "react-syntax-highlighter": "^15.4.4",
     "ts-node": "^10.1.0"
   },
   "devDependencies": {

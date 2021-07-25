@@ -1,17 +1,16 @@
+import IconButton from '@material-ui/core/IconButton'
 import Collapse from '@material-ui/core/Collapse'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import UnfoldLessIcon from '@material-ui/icons/UnfoldLess'
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore'
 import React, { useState } from 'react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import nnfxDark from 'react-syntax-highlighter/dist/cjs/styles/hljs/nnfx-dark'
 import { GistWithContent } from '../../../types/gist-types'
 import { truncate } from '../../../utilities/string-utils'
 import StarButton from '../../buttons/star-button'
-import TooltipButton from '../../buttons/tooltip-button'
 import HoverInfo from '../../hover-info/hover-info'
 import { useStarredStorage } from '../../starred-storage/starred-storage.provider'
+import CodeBlock from '../code-block'
 import { toLower } from '../gist-card-utils'
 import GistFilePager from '../gist-file-pager'
 import { GistFileInfo } from '../useGistFilesInfo'
@@ -53,12 +52,9 @@ const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
           </div>
           <div>
             <GistFilePager fileInfo={fileInfo} />
-            <TooltipButton
-              tipText={expanded ? 'Collapse' : 'Expand'}
-              onClick={() => setExpanded(!expanded)}
-            >
+            <IconButton onClick={() => setExpanded(!expanded)}>
               {expanded ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
-            </TooltipButton>
+            </IconButton>
             <StarButton
               isStarred={isStarredGist}
               star={handleStar}
@@ -68,15 +64,11 @@ const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
           </div>
         </div>
         <Collapse in={expanded} className='overflow-y-auto mx-2 mb-2 pt-0'>
-          <SyntaxHighlighter
+          <CodeBlock
+            fileName={file.filename}
             language={toLower(file?.language)}
-            showLineNumbers
-            wrapLongLines
-            style={nnfxDark}
-            customStyle={{ margin: 0 }}
-          >
-            {file.content}
-          </SyntaxHighlighter>
+            content={file.content}
+          />
         </Collapse>
       </div>
     </Paper>

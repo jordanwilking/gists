@@ -1,8 +1,7 @@
 import Paper from '@material-ui/core/Paper'
 import React from 'react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import nnfxDark from 'react-syntax-highlighter/dist/cjs/styles/hljs/nnfx-dark'
 import { GistWithContent } from '../../../types/gist-types'
+import CodeBlock from '../code-block'
 import { toLower } from '../gist-card-utils'
 import { GistFileInfo } from '../useGistFilesInfo'
 import GistDetails from './gist-details'
@@ -29,15 +28,11 @@ const GistCard = ({ gist, fileInfo }: GistCardProps) => {
         />
       </div>
       <div className='overflow-y-auto mx-2 mb-2 pt-0'>
-        <SyntaxHighlighter
+        <CodeBlock
+          fileName={file.filename}
           language={toLower(file?.language)}
-          showLineNumbers
-          wrapLongLines
-          style={nnfxDark}
-          customStyle={{ margin: 0 }}
-        >
-          {file.content}
-        </SyntaxHighlighter>
+          content={file.content}
+        />
       </div>
     </Paper>
   )

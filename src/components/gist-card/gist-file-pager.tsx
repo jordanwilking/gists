@@ -8,7 +8,6 @@ type GistFilePagerProps = {
   fileInfo: GistFileInfo
 }
 
-// TODO: tooltip performance issues
 /** Pages through gist files */
 const GistFilePager = ({ fileInfo }: GistFilePagerProps) => {
   return (
@@ -27,20 +26,6 @@ const GistFilePager = ({ fileInfo }: GistFilePagerProps) => {
           >
             <NavigateNextIcon fontSize='small' />
           </IconButton>
-          {/* <TooltipButton
-            tipText='Previous File'
-            onClick={fileInfo.prevFile}
-            disabled={!fileInfo.hasPrevFile}
-          >
-            <NavigateBeforeIcon fontSize='small' />
-          </TooltipButton>
-          <TooltipButton
-            tipText='Next File'
-            onClick={fileInfo.nextFile}
-            disabled={!fileInfo.hasNextFile}
-          >
-            <NavigateNextIcon fontSize='small' />
-          </TooltipButton> */}
         </>
       )}
     </>

@@ -14,6 +14,7 @@
   <ol>
     <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#ideas-for-improvement">Ideas for Improvement</a></li>
+    <li><a href="#tradeoffs">Tradeoffs</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -74,6 +75,10 @@ Some ideas for the project if it was intended for production
 - Consider consolidating card options
 - Performance
   - MUI Tooltip causes slowdown
+  - react-syntax highlighter performance is abysmal - had to get rid of the tooltips to make it work
+- Alternate syntax highlighter
+  - Prismjs is pretty painful for this usecase
+  - react-syntax-highlighter has poor performance
 - More robust testing
 - More robust error-handling
   - Validate gists before and after storing them
@@ -89,6 +94,17 @@ Some ideas for the project if it was intended for production
 - Error log
 - Improve search state
   - loading feels uncomfortable
+- optimistic responses for favoriting
+
+<!-- TRADEOFFS -->
+
+## Tradeoffs
+
+- Removed most mui tooltips
+  - [Performance] was poor with many on page at once.
+  - [Performance] Didn't play well with react-syntax-highlighter
+- Removed star/unstar snacks
+  - [Bad Usability] starring and unstarring too many creates a large number of snacks
 
 <!-- CONTACT -->
 

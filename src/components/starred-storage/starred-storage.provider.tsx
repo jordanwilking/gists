@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useState, useContext } from 'react'
 import { GistWithContent } from '../../types/gist-types'
 import {
   getGistsFromStorage,
@@ -6,7 +6,6 @@ import {
 } from './starred-storage-accessors'
 
 type StarredStorageContextType = {
-  starredGists: GistWithContent[]
   addGist: (gist: GistWithContent) => GistWithContent[]
   removeGist: (id: string) => GistWithContent[]
   isStarred: (gist: GistWithContent) => boolean
@@ -31,18 +30,16 @@ export const StarredStorageProvider = ({ children }: Props) => {
   )
 
   const addGist = (gist: GistWithContent) => {
-    const storedGists = getGistsFromStorage()
-    const newGists = [...storedGists, gist]
-    setGistsInStorage(newGists)
+    const newGists = [...starredGists, gist]
     setStarredGists(newGists)
+    setGistsInStorage(newGists)
     return newGists
   }
 
   const removeGist = (id: string) => {
-    const storedGists = getGistsFromStorage()
-    const newGists = storedGists.filter((gist) => gist.id !== id)
-    setGistsInStorage(newGists)
+    const newGists = starredGists.filter((gist) => gist.id !== id)
     setStarredGists(newGists)
+    setGistsInStorage(newGists)
     return newGists
   }
 
@@ -50,9 +47,7 @@ export const StarredStorageProvider = ({ children }: Props) => {
     Boolean(starredGists.find((starred) => starred.id === gist.id))
 
   return (
-    <StarredStorageContext.Provider
-      value={{ starredGists, addGist, removeGist, isStarred }}
-    >
+    <StarredStorageContext.Provider value={{ addGist, removeGist, isStarred }}>
       {children}
     </StarredStorageContext.Provider>
   )
