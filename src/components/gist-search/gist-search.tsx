@@ -6,6 +6,7 @@ import SearchBar from '../search-bar/search-bar'
 import { validateGists } from '../validation/validate-gists'
 import Gist from './gist'
 import GistSearchUserDetails from './gist-search-detail'
+import GistSearchMessage from './gist-search-message'
 import { getPrevSearch } from './previous-search-storage'
 
 /**
@@ -68,16 +69,6 @@ const GistSearch = () => {
           <Gist key={gist.id} gist={gist} />
         ))}
       </Grid>
-    </Grid>
-  )
-}
-
-const GistSearchMessage = ({ message }: { message: string }) => {
-  return (
-    <Grid container item justifyContent='center'>
-      <div className='flex justify-center w-3/5 xl:w-2/5 pl-2 py-4'>
-        {message}
-      </div>
     </Grid>
   )
 }
