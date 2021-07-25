@@ -38,11 +38,15 @@ const GistSearch = () => {
         setGists(validateGists(returnedGists))
         setTimeout(() => setIsLoading(false), 1000)
       })
-      .catch(() => {
+      .catch((error) => {
         // request returned not modified, forbidden, or not found
+        if (error?.response?.status === 403) {
+          setNotFoundMessage('Github api rate limit exceeded')
+        } else {
+          setNotFoundMessage(`No user found for ${searchInput}`)
+        }
         setTimeout(() => setIsLoading(false), 1000)
         setGists([])
-        setNotFoundMessage(`No user found for ${searchInput}`)
       })
   }
 

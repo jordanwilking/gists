@@ -29,7 +29,11 @@ To get a local copy up and running follow these steps.
    ```sh
    git clone https://github.com/jordanwilking/gists.git
    ```
-2. Run the program
+2. Install npm packages
+   ```sh
+   npm install
+   ```
+3. Run the program
    ```sh
    npm start
    ```
