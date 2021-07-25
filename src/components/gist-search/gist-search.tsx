@@ -9,6 +9,21 @@ import Gist from './gist'
 import GistSearchUserDetails from './gist-search-detail'
 import { getPrevSearch } from './previous-search-storage'
 
+const validateGists = (gists: GistType[]) => {
+  return gists.filter((gist) => {
+    // Check some standard values in the structure
+    if (gist?.id && gist?.owner?.id && gist.files) {
+      // Verify that the gist has at least 1 file
+      for (let prop in gist.files) {
+        if (gist.files.hasOwnProperty(prop)) return true
+      }
+    }
+
+    // Gist is in valid - don't keep it
+    return false
+  })
+}
+
 /**
  * The parent component for searching gists
  * Handles component displays and the initial search
@@ -37,7 +52,7 @@ const GistSearch = () => {
         }
 
         // TODO: validate gists and only keep the ones that pass
-        setGists(returnedGists)
+        setGists(validateGists(returnedGists))
         setTimeout(() => setIsLoading(false), 1000)
       })
       .catch(() => {
