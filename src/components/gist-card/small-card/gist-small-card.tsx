@@ -63,12 +63,14 @@ const GistSmallCard = ({ gist, fileInfo }: GistDisplayProps) => {
             <GistMenuOptions url={gist.html_url} content={file.content} />
           </div>
         </div>
-        <Collapse in={expanded} className='overflow-y-auto mx-2 mb-2 pt-0'>
-          <CodeBlock
-            fileName={file.filename}
-            language={toLower(file?.language)}
-            content={file.content}
-          />
+        <Collapse in={expanded} className='overflow-y-auto'>
+          <div className='mx-2 mb-2 pt-0'>
+            <CodeBlock
+              fileName={file.filename}
+              language={toLower(file?.language)}
+              content={file.content}
+            />
+          </div>
         </Collapse>
       </div>
     </Paper>

@@ -15,7 +15,7 @@ type StarButtonProps = {
  */
 const StarButton = ({ isStarred, star, unstar }: StarButtonProps) => {
   return (
-    <IconButton onClick={isStarred ? star : unstar}>
+    <IconButton onClick={isStarred ? unstar : star}>
       {isStarred ? <StarIcon /> : <StarOutlineIcon />}
     </IconButton>
   )
