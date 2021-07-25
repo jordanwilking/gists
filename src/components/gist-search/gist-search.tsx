@@ -7,15 +7,7 @@ import { Gist as GistType } from '../../types/gist-types'
 import SearchBar from '../search-bar/search-bar'
 import Gist from './gist'
 import GistSearchUserDetails from './gist-search-detail'
-
-/**
- * Grabs previously search's gists from local storage
- * Return an empty array if no gists were saved
- */
-const getPrevSearch = (): GistType[] => {
-  const prevSearch = localStorage.getItem('prevSearch')
-  return prevSearch ? JSON.parse(prevSearch) : []
-}
+import { getPrevSearch } from './previous-search-storage'
 
 /**
  * The parent component for searching gists
@@ -79,9 +71,9 @@ const GistSearch = () => {
           {!!gists.length && <GistSearchUserDetails gists={gists} />}
         </Grid>
         <Grid container item className='overflow-y-auto p-2'>
-          {gists.map((gist) => {
-            return <Gist key={gist.id} gistId={gist.id} />
-          })}
+          {gists.map((gist) => (
+            <Gist key={gist.id} gist={gist} />
+          ))}
         </Grid>
       </Grid>
     </Paper>
