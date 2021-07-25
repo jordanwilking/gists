@@ -57,7 +57,7 @@ Some ideas for the project if it was intended for production
 - Settings
   - Change themes
   - Change react-syntax-highlighter option
-- Filtering and ordering
+- Filtering and sorting
   - language, date, (un)starred
 - Paging (number of gists could exceed the amount retrieved my the api call)
 - User system
@@ -101,6 +101,9 @@ Some ideas for the project if it was intended for production
   - No limits on how many items could be there (paging and/or virtualization)
   - Inefficient way of removing starred items (localStorage live updates)
   - Don't pass showUser through so many props (context?)
+- Transitions
+  - Between pages
+  - As cards are deleted
 
 <!-- TRADEOFFS -->
 
