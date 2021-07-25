@@ -10,6 +10,9 @@ const Entry = () => {
       createTheme({
         palette: {
           type: 'dark',
+          secondary: {
+            main: '#86e2d5',
+          },
         },
       }),
     []

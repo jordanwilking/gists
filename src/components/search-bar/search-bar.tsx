@@ -15,7 +15,7 @@ type SearchBarProps = {
 }
 
 const borderStyles =
-  ' border-transparent border-2 hover:border-muipink-700 focus-within:border-muipink-700'
+  ' border-transparent border-2 hover:border-blue focus-within:border-blue'
 
 const SearchBar = ({
   onSubmit,

@@ -29,12 +29,12 @@
   .min-h-64 {
     min-height: 16rem;
   }
-  .focus-within\:border-muipink-700:focus-within {
-    border-color: #f50057;
+  .focus-within\:border-blue:focus-within {
+    border-color: #86e2d5;
     border-width: 2px;
   }
-  .hover\:border-muipink-700:hover {
-    border-color: #f50057;
+  .hover\:border-blue:hover {
+    border-color: #86e2d5;
     border-width: 2px;
   }
 }
